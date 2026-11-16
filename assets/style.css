@@ -780,3 +780,4 @@
 
   .cta__star { grid-template-columns: minmax(0, 1fr) auto; padding: 14px 14px 14px 18px; }
   @media (max-width: 640px) { .cta__star { grid-template-columns: minmax(0, 1fr); } }
+  .arrows .halo { display: none; }
