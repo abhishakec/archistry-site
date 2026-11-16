@@ -161,7 +161,6 @@
     .hero.sec { padding-top: calc(var(--nav-h) + 14px); padding-bottom: 24px; }
     .hero__copy { gap: 14px; }
     .hero .fine { display: none; }
-    .hero .lede { font-size: 1rem; }
     .prompt { padding: 10px 12px; gap: 8px; }
     .chat { min-height: 0; padding: 8px 8px 8px 12px; } .chat__text { min-height: 0; font-size: .8125rem; }
     .avatar { width: 28px; height: 28px; } .send { width: 28px; height: 28px; }
@@ -218,6 +217,9 @@
   .hero__copy { grid-column: span 5; display: grid; gap: 18px; }
   .hero h1 { max-width: none; }
   .fine { font-size: .875rem; color: var(--ink-2); }
+  .hero .lede { font-size: .875rem; color: var(--ink-2); max-width: 46ch; }
+  .hero .lede b { color: var(--ink); }
+  .h1-sub { display: block; margin-top: .35em; font-size: .42em; font-weight: 600; letter-spacing: -.01em; line-height: 1.2; color: var(--accent); }
 
   /* ---------- try it ---------- */
   .ask-list { display: grid; gap: 8px; }
@@ -329,12 +331,22 @@
   .js .hero__vis .avatar { transform: scale(0); } .js .hero__vis .chat { opacity: 0; transform: translateX(-8px); }
   .js .hero__vis .is-chat .avatar { transform: scale(1); transition: transform .5s cubic-bezier(.3, 1.6, .4, 1); }
   .js .hero__vis .is-chat .chat { opacity: 1; transform: none; transition: opacity .4s .12s, transform .5s .12s var(--ease), border-color .25s, box-shadow .25s; }
-  .js .callout { opacity: 0; transform: translateY(10px) scale(.96); }
+  .callout { pointer-events: none; }
+  .js .callout { opacity: 0; transform: translateY(10px) scale(.96); transition: opacity .3s, transform .3s; }
   .js .callout.on { opacity: 1; transform: none; transition: opacity .45s var(--ease), transform .55s cubic-bezier(.3, 1.4, .4, 1); }
-  .js .arrows .arrow, .js .arrows .halo { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .js .arrows .arrow, .js .arrows .halo { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .3s; }
   .js .arrows .arrow.on, .js .arrows .halo.on { stroke-dashoffset: 0; transition: stroke-dashoffset .75s var(--ease); }
-  .js .arrows .ah { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); }
+  .js .arrows .ah { transition: opacity .2s; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); }
   .js .arrows .ah.on { opacity: 1; transform: none; transition: opacity .2s .55s, transform .35s .55s cubic-bezier(.3, 1.8, .4, 1); }
+  /* hotspots: after the tour the boxes hide and dots on the diagram bring each one back on hover */
+  .hot { position: absolute; z-index: 6; width: 18px; height: 18px; padding: 0; border: 2px solid #fff; border-radius: 50%; background: var(--peach); box-shadow: 0 2px 8px rgb(30 27 58 / .35); transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events: none; transition: transform .45s cubic-bezier(.3, 1.6, .4, 1), opacity .3s; }
+  .hot::before { content: ""; position: absolute; inset: -14px; border-radius: 50%; }
+  .hot::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 2px solid var(--peach); opacity: 0; animation: ping 2s var(--ease) infinite; }
+  .is-hot .hot { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); transition-delay: calc(var(--i) * 80ms); }
+  .is-hot .hot:hover, .is-hot .hot:focus-visible { transform: translate(-50%, -50%) scale(1.25); transition-delay: 0s; }
+  .hot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  @keyframes ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.4); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .hot::after { animation: none; } }
   @media (max-width: 900px) {
     .hero__vis { gap: 28px; }
     .hero .fine { display: none; }
@@ -344,7 +356,7 @@
   }
   @media (max-width: 640px) {
     .hero__vis { gap: 0; }
-    .anat, .arrows { display: none; }
+    .anat, .arrows, .hot { display: none; }
     .hero .eyebrow { display: none; }
     .hero.sec { padding-bottom: 16px; }
   }
@@ -364,18 +376,17 @@
   .gh-btn svg { transition: transform .3s var(--ease); }
   .btn--shine { position: relative; overflow: hidden; isolation: isolate; }
   .btn--shine::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: 0; width: 45%; transform: translateX(-160%) skewX(-22deg); background: linear-gradient(90deg, transparent, rgb(255 255 255 / .38), transparent); }
-  .btn .dl { transition: transform .25s var(--ease); }
   @media (hover: hover) {
     .theme-btn:hover { background: var(--accent-soft); }
     :root:not([data-theme="dark"]) .theme-btn:hover .rays { transform: rotate(60deg) scale(1.08); }
     :root[data-theme="dark"] .theme-btn:hover .theme-ico { transform: rotate(-18deg); }
     .theme-btn .theme-ico { transition: transform .35s var(--ease); }
-    .gh-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--bg); transform: translateY(-2px); }
-    .gh-btn:hover svg { animation: wiggle .7s var(--ease); }
+    .gh-btn:hover { color: var(--accent); }
+    .gh-btn:hover svg { animation: cat 1s var(--ease); transform-origin: 50% 90%; }
     .btn--shine:hover::before { transform: translateX(380%) skewX(-22deg); transition: transform .8s var(--ease); }
-    .btn:hover .dl { animation: drop .6s var(--ease); }
-    .btn--primary:hover svg:not(.dl) { transform: translateX(5px); }
+    .btn--primary:hover svg { transform: translateX(5px); }
   }
+  @keyframes cat { 0% { transform: none; } 12% { transform: scale(1.08, .86); } 34% { transform: translateY(-4px) rotate(-10deg) scale(.96, 1.1); } 52% { transform: translateY(-2px) rotate(9deg); } 70% { transform: rotate(-4deg) scale(1.04, .94); } 100% { transform: none; } }
   @keyframes wiggle { 0% { transform: none; } 25% { transform: rotate(-16deg) scale(1.12); } 55% { transform: rotate(12deg) scale(1.12); } 80% { transform: rotate(-5deg); } 100% { transform: none; } }
   @keyframes drop { 0% { transform: translateY(0); } 40% { transform: translateY(5px); } 70% { transform: translateY(-2px); } 100% { transform: none; } }
   @keyframes pop { 40% { transform: scale(.78); } 100% { transform: none; } }

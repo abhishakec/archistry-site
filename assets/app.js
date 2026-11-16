@@ -99,7 +99,7 @@
   (function hero() {
     var vis = $('#hero-vis'); if (!vis) return;
     var frame = $('#hero-frame', vis), chat = $('.chat', vis), prompt = $('.prompt', vis), typed = $('#hero-typed'), shot = $('#hero-shot'), svg = $('.arrows', vis);
-    var callouts = $$('.callout', vis), full = typed.textContent, caret = $('.caret', vis), timers = [], paths = [];
+    var hots = [], callouts = $$('.callout', vis), full = typed.textContent, caret = $('.caret', vis), timers = [], paths = [];
     var NS = 'http://www.w3.org/2000/svg';
     function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
@@ -112,6 +112,7 @@
       var on = paths.length && paths[0].classList.contains('on');
       svg.setAttribute('viewBox', '0 0 ' + vr.width + ' ' + vr.height);
       svg.innerHTML = ''; paths = [];
+      hots.forEach(function (h) { h.remove(); }); hots = [];
       var fp = pos(frame), fw = frame.offsetWidth, gy = fp.y, gh = ip.y - fp.y;
       var defs = document.createElementNS(NS, 'defs'), mk = document.createElementNS(NS, 'mask');
       mk.setAttribute('id', 'hero-gap'); mk.setAttribute('maskUnits', 'userSpaceOnUse'); mk.setAttribute('x', 0); mk.setAttribute('y', 0); mk.setAttribute('width', vr.width); mk.setAttribute('height', vr.height);
@@ -130,16 +131,23 @@
         if (top) { halo.setAttribute('mask', 'url(#hero-gap)'); p.setAttribute('mask', 'url(#hero-gap)'); }
         [halo, p, ah].forEach(function (n) { svg.appendChild(n); });
         paths.push(p, halo, ah);
+        var hb = document.createElement('button'); hb.type = 'button'; hb.className = 'hot'; hb.style.setProperty('--i', i); hb.style.left = tx + 'px'; hb.style.top = ty + 'px';
+        hb.setAttribute('aria-label', co.querySelector('b').textContent + ': ' + co.querySelector('span').textContent);
+        ['mouseenter', 'focus'].forEach(function (ev) { hb.addEventListener(ev, function () { setCallout(i, true); }); });
+        ['mouseleave', 'blur'].forEach(function (ev) { hb.addEventListener(ev, function () { setCallout(i, false); }); });
+        vis.appendChild(hb); hots.push(hb);
         if (on || reduce) [halo, p, ah].forEach(function (n) { n.classList.add('on'); });
       });
     }
-    function showCallout(i) {
-      callouts[i].classList.add('on');
-      var k = i * 3, ns = [paths[k + 1], paths[k], paths[k + 2]];
-      ns.forEach(function (n) { if (n) n.classList.add('on'); });
+    function setCallout(i, on) {
+      callouts[i].classList.toggle('on', on);
+      var k = i * 3;
+      [paths[k + 1], paths[k], paths[k + 2]].forEach(function (n) { if (n) n.classList.toggle('on', on); });
     }
+    function showCallout(i) { setCallout(i, true); }
+    function hotspots() { callouts.forEach(function (c2, i) { setCallout(i, false); }); vis.classList.add('is-hot'); }
     function reset() {
-      timers.forEach(clearTimeout); timers = [];
+      timers.forEach(clearTimeout); timers = []; vis.classList.remove('is-hot');
       frame.classList.remove('is-on'); prompt.classList.remove('is-chat'); chat.classList.remove('is-typing', 'is-done', 'is-sent');
       shot.classList.remove('is-in'); callouts.forEach(function (c2) { c2.classList.remove('on'); });
       paths.forEach(function (n) { n.classList.remove('on'); });
@@ -152,7 +160,7 @@
     }
     function play() {
       reset(); layout();
-      if (reduce) { showAll(); return; }
+      if (reduce) { showAll(); later(hotspots, 20000); return; }
       later(function () { frame.classList.add('is-on'); }, 150);                         /* 1. the window appears */
       later(function () { prompt.classList.add('is-chat'); }, 900);                      /* 2. the user icon and the chat box */
       later(function () {                                                                /* 3. the request is typed */
@@ -163,6 +171,7 @@
       later(function () { chat.classList.remove('is-typing'); chat.classList.add('is-done', 'is-sent'); if (caret) caret.style.display = 'none'; }, typedEnd);   /* send */
       later(function () { shot.classList.add('is-in'); }, typedEnd + 450);               /* 4. the diagram appears */
       callouts.forEach(function (c2, i) { later(function () { showCallout(i); }, typedEnd + 1700 + i * 260); });   /* 5. the anatomy, box by box */
+      later(hotspots, typedEnd + 1700 + callouts.length * 260 + 20000);                  /* 6. after 20 s the boxes hide, dots stay on the diagram */
     }
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 120); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
