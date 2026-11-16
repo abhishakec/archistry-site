@@ -195,8 +195,8 @@
       sr.textContent = t.ask;
       img.width = t.w; img.height = t.h; img.srcset = 'img/sm/' + n + '.png 800w, previews/' + n + '.png 1600w'; img.src = 'previews/' + n + '.png';
       img.alt = label(n) + ' diagram. ' + t.question;
-      shot.href = 'examples/' + n + '.html';
-      shot.setAttribute('aria-label', 'Open the ' + label(n).toLowerCase() + ' diagram as an interactive page');
+      shot.href = 'examples/' + n + '.html'; shot.target = '_blank'; shot.rel = 'noopener';
+      shot.setAttribute('aria-label', 'Open the ' + label(n).toLowerCase() + ' diagram as an interactive page (opens in a new tab)');
       cmd.innerHTML = '<span class="p">$</span> archistry build ' + n + '.json --format drawio,html,png\n<span class="c">  wrote ' + n + '.drawio, ' + n + '.html, ' + n + '.png</span>';
       cmd.dataset.plain = 'archistry build ' + n + '.json --format drawio,html,png';
       files.innerHTML = ['drawio', 'html', 'png'].map(function (x) { return '<span class="pill">' + n + '.' + x + '</span>'; }).join('');
@@ -262,13 +262,10 @@
       $('#d-ask').textContent = 'Ask: “' + t.ask + '”';
       $('#d-drawio').href = 'examples/' + t.name + '.drawio';
       $('#d-spec').href = 'examples/' + t.name + '.json';
-      var view = $('#d-view'), btn = $('#d-live');
-      if (st.live) {
-        view.innerHTML = '<iframe class="live" title="Interactive ' + esc(label(t.name)) + ' diagram" src="examples/' + t.name + '.html"></iframe>';
-        btn.firstChild.textContent = 'Back to the picture ';
-      } else {
-        view.innerHTML = '<div class="shot shot--detail"><img id="d-img" src="previews/' + t.name + '.png" srcset="img/sm/' + t.name + '.png 800w, previews/' + t.name + '.png 1600w" sizes="(max-width: 900px) 100vw, 780px" decoding="async" width="' + t.w + '" height="' + t.h + '" alt="' + esc(label(t.name)) + ' diagram. ' + esc(t.question) + '"></div>';
-        btn.firstChild.textContent = 'Open it live ';
+      var view = $('#d-view');
+      $('#d-live').href = 'examples/' + t.name + '.html';
+      {
+        view.innerHTML = '<a class="shot shot--detail" href="examples/' + t.name + '.html" target="_blank" rel="noopener" aria-label="Open the ' + esc(label(t.name)).toLowerCase() + ' diagram live (opens in a new tab)"><img id="d-img" src="previews/' + t.name + '.png" srcset="img/sm/' + t.name + '.png 800w, previews/' + t.name + '.png 1600w" sizes="(max-width: 900px) 100vw, 780px" decoding="async" width="' + t.w + '" height="' + t.h + '" alt="' + esc(label(t.name)) + ' diagram. ' + esc(t.question) + '"></a>';
       }
     }
     function select(name, focus) {
@@ -295,7 +292,6 @@
       e.preventDefault(); select(items[(i + d + items.length) % items.length].dataset.n, true);
     });
     q.addEventListener('input', function () { st.query = q.value; renderTabs(); renderList(); st.live = false; renderDetail(); });
-    $('#d-live').addEventListener('click', function () { st.live = !st.live; renderDetail(); });
     renderTabs(); renderList(); renderDetail();
     $$('.tab', stagesEl).forEach(function (b) { if (b.dataset.s === st.stage) b.setAttribute('aria-selected', 'true'); });
   })();

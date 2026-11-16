@@ -108,7 +108,7 @@
         </div>
       </div>
       <div class="frame__body">
-        <a class="shot reveal-img" id="hero-shot" href="examples/solution-architecture.html" aria-label="Open this diagram as an interactive page"><img src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 700px" width="1600" height="567" alt="Solution architecture diagram: customer channels, the Salesforce platform with Commerce, Sales, Service, Agentforce and Data Cloud, and enterprise systems, joined by labelled connectors"></a>
+        <a class="shot reveal-img" id="hero-shot" href="examples/solution-architecture.html" aria-label="Open this diagram as an interactive page" target="_blank" rel="noopener"><img src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 700px" width="1600" height="567" alt="Solution architecture diagram: customer channels, the Salesforce platform with Commerce, Sales, Service, Agentforce and Data Cloud, and enterprise systems, joined by labelled connectors"></a>
       </div>
     </div>
     <div class="anat anat--bottom">
@@ -165,8 +165,8 @@
         <div class="feature__files">
           <div class="files" id="try-files"></div>
           <div class="row">
-            <a class="btn btn--sm btn--primary" id="try-open" href="#">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="btn btn--sm btn--ghost" id="try-spec" href="#">Read the spec</a>
+            <a class="btn btn--sm btn--primary" id="try-open" href="#" target="_blank" rel="noopener">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--sm btn--ghost" id="try-spec" href="#" target="_blank" rel="noopener">Read the spec</a>
           </div>
         </div>
       </div>
@@ -198,9 +198,9 @@
           <div class="frame__body" id="d-view"><div class="shot shot--detail"><img id="d-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></div></div>
         </div>
         <div class="row">
-          <button class="btn btn--primary btn--sm" type="button" id="d-live">Open it live <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <a class="btn btn--primary btn--sm" id="d-live" href="#" target="_blank" rel="noopener">Open it live in a new tab <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--sm" id="d-drawio" href="#" download>Download the draw.io file</a>
-          <a class="btn btn--sm btn--ghost" id="d-spec" href="#">Read the spec</a>
+          <a class="btn btn--sm btn--ghost" id="d-spec" href="#" target="_blank" rel="noopener">Read the spec</a>
         </div>
         <p class="fine" id="d-ask"></p>
       </div>
@@ -221,7 +221,7 @@
         <div class="frame">
           <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
           <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy"></iframe>
-          <div class="live-alt"><a class="shot" href="examples/system-landscape.html"><img src="img/sm/system-landscape.png" width="800" height="450" alt="System landscape diagram in the Archistry viewer" loading="lazy" decoding="async"></a><a class="btn btn--primary btn--sm" href="examples/system-landscape.html">Open the live editor <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+          <div class="live-alt"><a class="shot" href="examples/system-landscape.html" target="_blank" rel="noopener"><img src="img/sm/system-landscape.png" width="800" height="450" alt="System landscape diagram in the Archistry viewer" loading="lazy" decoding="async"></a><a class="btn btn--primary btn--sm" href="examples/system-landscape.html" target="_blank" rel="noopener">Open the live editor <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
         </div>
         <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
           <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
@@ -293,19 +293,19 @@
     </div>
     <div class="grid" style="align-items: stretch">
       <article class="card" style="grid-column: span 4">
-        <a class="shot" href="examples/data-model.html"><img src="previews/data-model.png" srcset="img/sm/data-model.png 800w, previews/data-model.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Entity relationship diagram with Salesforce crow's foot notation" loading="lazy"></a>
+        <a class="shot" href="examples/data-model.html" target="_blank" rel="noopener"><img src="previews/data-model.png" srcset="img/sm/data-model.png 800w, previews/data-model.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Entity relationship diagram with Salesforce crow's foot notation" loading="lazy"></a>
         <h3>Draw an ERD from an SFDX project</h3>
         <p>Reads objects, key fields, lookups and master-detail links from your metadata.</p>
         <div class="term"><div class="term__bar"><span>erd-from-sfdx</span><button class="copy" type="button" data-copy-from="#m1"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m1">archistry erd-from-sfdx ./ -o erd.json --objects Account,Case</code></pre></div>
       </article>
       <article class="card" style="grid-column: span 4">
-        <a class="shot" href="examples/data-cloud-mapping.html"><img src="previews/data-cloud-mapping.png" srcset="img/sm/data-cloud-mapping.png 800w, previews/data-cloud-mapping.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Field-level mapping from source systems to Data Cloud objects" loading="lazy"></a>
+        <a class="shot" href="examples/data-cloud-mapping.html" target="_blank" rel="noopener"><img src="previews/data-cloud-mapping.png" srcset="img/sm/data-cloud-mapping.png 800w, previews/data-cloud-mapping.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Field-level mapping from source systems to Data Cloud objects" loading="lazy"></a>
         <h3>Map Data Cloud fields from a CSV</h3>
         <p>Turns a DLO to DMO mapping sheet into a field-level diagram.</p>
         <div class="term"><div class="term__bar"><span>mapping-from-csv</span><button class="copy" type="button" data-copy-from="#m2"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m2">archistry mapping-from-csv mappings.csv -o mapping.json</code></pre></div>
       </article>
       <article class="card" style="grid-column: span 4">
-        <a class="shot" href="examples/flow-logic.html"><img src="previews/flow-logic.png" srcset="img/sm/flow-logic.png 800w, previews/flow-logic.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="A Salesforce Flow drawn element by element with decisions and fault paths" loading="lazy"></a>
+        <a class="shot" href="examples/flow-logic.html" target="_blank" rel="noopener"><img src="previews/flow-logic.png" srcset="img/sm/flow-logic.png 800w, previews/flow-logic.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="A Salesforce Flow drawn element by element with decisions and fault paths" loading="lazy"></a>
         <h3>Explain a Flow as a diagram</h3>
         <p>Reads a flow-meta.xml: decisions, record operations, loops and fault paths.</p>
         <div class="term"><div class="term__bar"><span>flow-from-metadata</span><button class="copy" type="button" data-copy-from="#m3"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m3">archistry flow-from-metadata My_Flow.flow-meta.xml -o flow.json</code></pre></div>
