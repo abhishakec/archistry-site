@@ -128,7 +128,6 @@
         var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('pathLength', '1'); p.setAttribute('class', 'arrow');
         var ah = document.createElementNS(NS, 'path'); ah.setAttribute('class', 'ah');
         var dir = top ? 1 : -1; ah.setAttribute('d', 'M' + (tx - 6) + ' ' + (ty - 11 * dir) + ' L' + (tx + 6) + ' ' + (ty - 11 * dir) + ' L' + tx + ' ' + ty + ' Z');
-        if (top) { halo.setAttribute('mask', 'url(#hero-gap)'); p.setAttribute('mask', 'url(#hero-gap)'); }
         [halo, p, ah].forEach(function (n) { svg.appendChild(n); });
         paths.push(p, halo, ah);
         var hb = document.createElement('button'); hb.type = 'button'; hb.className = 'hot'; hb.style.setProperty('--i', i); hb.style.left = tx + 'px'; hb.style.top = ty + 'px';
@@ -160,7 +159,7 @@
     }
     function play() {
       reset(); layout();
-      if (reduce) { showAll(); later(hotspots, 20000); return; }
+      if (reduce) { showAll(); later(hotspots, 5000); return; }
       later(function () { frame.classList.add('is-on'); }, 150);                         /* 1. the window appears */
       later(function () { prompt.classList.add('is-chat'); }, 900);                      /* 2. the user icon and the chat box */
       later(function () {                                                                /* 3. the request is typed */
@@ -171,7 +170,7 @@
       later(function () { chat.classList.remove('is-typing'); chat.classList.add('is-done', 'is-sent'); if (caret) caret.style.display = 'none'; }, typedEnd);   /* send */
       later(function () { shot.classList.add('is-in'); }, typedEnd + 450);               /* 4. the diagram appears */
       callouts.forEach(function (c2, i) { later(function () { showCallout(i); }, typedEnd + 1700 + i * 260); });   /* 5. the anatomy, box by box */
-      later(hotspots, typedEnd + 1700 + callouts.length * 260 + 20000);                  /* 6. after 20 s the boxes hide, dots stay on the diagram */
+      later(hotspots, typedEnd + 1700 + callouts.length * 260 + 5000);                   /* 6. after 5 s the boxes hide, dots stay on the diagram */
     }
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 120); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
@@ -376,4 +375,21 @@
   })();
 
   var eng = $('[data-engines]'); if (eng && D.engines) eng.textContent = D.engines;
+})();
+
+/* github icon: the useanimations "github" Lottie (MIT), looped while hovered or focused, finishing its cycle on leave */
+(function () {
+  var host = document.getElementById('gh-lottie'); if (!host || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var link = host.parentNode;
+  function start() {
+    if (!window.lottie) return;
+    var a = window.lottie.loadAnimation({ container: host, renderer: 'svg', loop: false, autoplay: false, path: 'assets/github.json' });
+    a.addEventListener('DOMLoaded', function () { var old = host.querySelector(':scope > svg:not([viewBox="0 0 32 32"])'); if (old) old.remove(); });
+    var hovering = false;
+    function go() { hovering = true; a.loop = true; a.play(); }
+    function stop() { hovering = false; a.loop = false; }
+    a.addEventListener('complete', function () { if (!hovering) a.goToAndStop(0, true); });
+    link.addEventListener('mouseenter', go); link.addEventListener('focus', go); link.addEventListener('mouseleave', stop); link.addEventListener('blur', stop);
+  }
+  var s = document.createElement('script'); s.src = 'assets/vendor/lottie_light.min.js'; s.async = true; s.onload = start; document.head.appendChild(s);
 })();

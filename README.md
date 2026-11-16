@@ -38,3 +38,7 @@ Built with plain HTML, CSS and JavaScript: no framework, no build tooling beyond
 
 MIT, see [LICENSE](LICENSE). Diagram examples, icons and logo come from the [skill repo](https://github.com/abhishakec/archistry) and keep its terms (see its `THIRD-PARTY-NOTICES.md`). Fonts: Sora, Inter and JetBrains Mono under the SIL Open Font License 1.1 (licence texts in this repo).
 Salesforce, Agentforce, Data Cloud and MuleSoft are trademarks of Salesforce, Inc.; this is an unofficial community project.
+
+## Third-party
+
+- GitHub icon animation: useanimations "github" Lottie (MIT), `assets/github.json`, played with lottie-web 5.12.2 light build (MIT), `assets/vendor/`.
