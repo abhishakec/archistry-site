@@ -146,25 +146,28 @@
       <h2 id="h-try">Plain requests, finished diagrams</h2>
       <p class="lede">Pick a request. Each result is real Archistry output, unedited.</p>
     </div>
-    <div class="grid">
-    <div class="stack" style="grid-column: span 4; gap: 22px">
-      <div class="ask-list" id="asks" role="radiogroup" aria-label="Example requests"></div>
-    </div>
-    <div class="result" style="grid-column: span 8" aria-live="polite">
-      <div class="frame">
-        <div class="bubble"><span class="sr" id="try-sr"></span><span id="try-text" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></div>
-        <div class="frame__body"><a class="shot reveal-img" id="try-shot" href="#"><img id="try-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></a></div>
+    <div class="feature">
+      <div class="feature__stage" aria-live="polite">
+        <div class="frame">
+          <div class="bubble"><span class="sr" id="try-sr"></span><span id="try-text" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></div>
+          <div class="frame__body"><a class="shot reveal-img" id="try-shot" href="#"><img id="try-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></a></div>
+        </div>
+        <div class="term">
+          <div class="term__bar"><span>the agent runs</span><button class="copy" type="button" data-copy-from="#try-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+          <pre><code id="try-cmd"></code></pre>
+        </div>
       </div>
-      <div class="term">
-        <div class="term__bar"><span>the agent runs</span><button class="copy" type="button" data-copy-from="#try-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
-        <pre><code id="try-cmd"></code></pre>
+      <div class="feature__side">
+        <span class="kicker">Pick a request</span>
+        <div class="ask-list" id="asks" role="radiogroup" aria-label="Example requests"></div>
+        <div class="feature__files">
+          <div class="files" id="try-files"></div>
+          <div class="row">
+            <a class="btn btn--sm btn--primary" id="try-open" href="#">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--sm btn--ghost" id="try-spec" href="#">Read the spec</a>
+          </div>
+        </div>
       </div>
-      <div class="row">
-        <div class="files" id="try-files"></div>
-        <a class="btn btn--sm" id="try-open" href="#">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn--sm btn--ghost" id="try-spec" href="#">Read the spec</a>
-      </div>
-    </div>
     </div>
   </div>
 </section>
@@ -209,8 +212,18 @@
       <h2 id="h-edit">Edit in draw.io or in the browser</h2>
       <p class="lede">Both files come from the same model and convert into each other without loss.</p>
     </div>
-    <div class="grid edit-grid">
-      <div class="edit-cards" style="grid-column: span 5">
+    <div class="feature feature--flip">
+      <div class="feature__stage">
+        <div class="frame">
+          <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
+          <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy"></iframe>
+        </div>
+        <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
+          <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
+        </div>
+      </div>
+      <div class="feature__side">
+        <span class="kicker">Two files, one model</span>
         <div class="card fmt">
           <img src="assets/icons/xml.svg" alt="" width="36" height="41" loading="lazy">
           <h3>Open the .drawio in draw.io</h3>
@@ -220,15 +233,6 @@
           <img src="assets/icons/html.svg" alt="" width="36" height="41" loading="lazy">
           <h3>Edit the .html in any browser</h3>
           <ul><li>One offline file, nothing to install</li><li>Move, resize, retext, recolour, connect, undo</li><li>Export PNG, JPG or SVG from the page</li></ul>
-        </div>
-      </div>
-      <div class="edit-view" style="grid-column: span 7">
-        <div class="frame">
-          <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
-          <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy"></iframe>
-        </div>
-        <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
-          <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
         </div>
       </div>
     </div>
@@ -242,32 +246,33 @@
       <h2 id="h-export">Images for your documents</h2>
       <p class="lede">Export PNG, JPG or SVG for Word, Confluence and slides. Set the options, copy the command.</p>
     </div>
-    <div class="grid">
-    <div class="stack" style="grid-column: span 5; gap: 24px">
-      <div class="builder" id="builder">
-        <div class="ctl"><b id="l-fmt">Format</b><div class="tabs" role="radiogroup" aria-labelledby="l-fmt" data-ctl="format">
-          <button class="tab" type="button" role="radio" aria-checked="true" data-v="png">PNG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="jpg">JPG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="svg">SVG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="all">All three</button></div></div>
-        <div class="ctl"><b id="l-theme">Theme</b><div class="tabs" role="radiogroup" aria-labelledby="l-theme" data-ctl="theme">
-          <button class="tab" type="button" role="radio" aria-checked="true" data-v="light">Light</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="dark">Dark</button></div></div>
-        <div class="ctl"><b id="l-scale">Resolution</b><div class="tabs" role="radiogroup" aria-labelledby="l-scale" data-ctl="scale">
-          <button class="tab" type="button" role="radio" aria-checked="false" data-v="1">1×</button><button class="tab" type="button" role="radio" aria-checked="true" data-v="2">2×</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="4">4× print</button></div></div>
-        <label class="switch"><input type="checkbox" id="transparent"> Transparent background</label>
+    <div class="feature">
+      <div class="feature__stage">
+        <div class="frame">
+          <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="export-name">diagram.png</span></div>
+          <div class="shot" id="export-shot"><img id="export-img" loading="lazy" decoding="async" src="assets/export-light.png" width="1600" height="567" alt="The same solution architecture diagram exported as an image" style="max-height: 300px; object-fit: contain"></div>
+        </div>
+        <div class="term">
+          <div class="term__bar"><span>archistry export</span><button class="copy" type="button" data-copy-from="#export-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+          <pre><code id="export-cmd"></code></pre>
+        </div>
       </div>
-    </div>
-    <div class="stack" style="grid-column: span 7; gap: 18px">
-      <div class="frame">
-        <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="export-name">diagram.png</span></div>
-        <div class="shot" id="export-shot"><img id="export-img" loading="lazy" decoding="async" src="assets/export-light.png" width="1600" height="567" alt="The same solution architecture diagram exported as an image" style="max-height: 300px; object-fit: contain"></div>
+      <div class="feature__side">
+        <span class="kicker">Set the options</span>
+        <div class="builder" id="builder">
+          <div class="ctl"><b id="l-fmt">Format</b><div class="tabs" role="radiogroup" aria-labelledby="l-fmt" data-ctl="format">
+            <button class="tab" type="button" role="radio" aria-checked="true" data-v="png">PNG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="jpg">JPG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="svg">SVG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="all">All three</button></div></div>
+          <div class="ctl"><b id="l-theme">Theme</b><div class="tabs" role="radiogroup" aria-labelledby="l-theme" data-ctl="theme">
+            <button class="tab" type="button" role="radio" aria-checked="true" data-v="light">Light</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="dark">Dark</button></div></div>
+          <div class="ctl"><b id="l-scale">Resolution</b><div class="tabs" role="radiogroup" aria-labelledby="l-scale" data-ctl="scale">
+            <button class="tab" type="button" role="radio" aria-checked="false" data-v="1">1×</button><button class="tab" type="button" role="radio" aria-checked="true" data-v="2">2×</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="4">4× print</button></div></div>
+          <label class="switch"><input type="checkbox" id="transparent"> Transparent background</label>
+        </div>
+        <div class="use" aria-label="Where the images go">
+          <span class="pill">Word</span><span class="pill">Confluence</span><span class="pill">Google Docs</span><span class="pill">Slides</span><span class="pill">README files</span>
+        </div>
+        <p class="fine">SVG needs only Node. PNG and JPG use the Chrome, Edge or Chromium already on your machine, headless. Without Node, use the Export menu in the HTML page. For PowerPoint, insert the SVG and choose Convert to Shape.</p>
       </div>
-      <div class="term">
-        <div class="term__bar"><span>archistry export</span><button class="copy" type="button" data-copy-from="#export-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
-        <pre><code id="export-cmd"></code></pre>
-      </div>
-      <div class="use" aria-label="Where the images go">
-        <span class="pill">Word</span><span class="pill">Confluence</span><span class="pill">Google Docs</span><span class="pill">Slides</span><span class="pill">README files</span>
-      </div>
-      <p class="fine">SVG needs only Node. PNG and JPG use the Chrome, Edge or Chromium already on your machine, headless. Without Node, use the Export menu in the HTML page. For PowerPoint, insert the SVG and choose Convert to Shape.</p>
-    </div>
     </div>
   </div>
 </section>
@@ -385,6 +390,7 @@
       <div class="foot__brand">
         <a class="brand" href="#top"><img src="brand/archistry-mark.svg" alt="" width="32" height="32" loading="lazy">Archistry</a>
         <p>Salesforce diagrams from a sentence, as editable draw.io files and interactive HTML pages.</p>
+        <ul class="foot__facts" aria-label="At a glance"><li>MIT</li><li>40 diagram types</li><li>Runs locally</li></ul>
         <div class="foot__me">
           <a class="btn btn--sm btn--love" href="https://github.com/abhishakec"><span>Built with love</span><span class="heart" aria-hidden="true">♥</span><span>by @abhishakec</span></a>
           <a class="in-badge" href="https://www.linkedin.com/in/abhishakec/"><i><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-linkedin"/></svg></i><span>Find me on LinkedIn</span></a>
