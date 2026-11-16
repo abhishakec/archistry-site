@@ -619,3 +619,6 @@
   .detail__ask p { margin: 2px 0 0; font-size: .9375rem; }
   .detail__act { padding-top: 4px; }
   @media (max-width: 640px) { .detail__eng { display: none; } .detail__open { display: none; } .detail__act .btn { flex: 1 1 100%; } }
+  .detail__head { align-items: center; gap: 12px; }
+  .detail__head .pill { flex: none; }
+  .type { font-size: .9375rem; padding: 0 10px; }

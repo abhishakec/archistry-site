@@ -261,14 +261,13 @@
       $('#d-q').textContent = t.question;
       $('#d-ask').textContent = '“' + t.ask + '”';
       $('#d-file').textContent = t.name + '.html';
-      $('#d-eng').textContent = 'layout: ' + (t.engine || 'auto');
       $('#d-open').href = 'examples/' + t.name + '.html';
       $('#d-drawio').href = 'examples/' + t.name + '.drawio';
       $('#d-spec').href = 'examples/' + t.name + '.json';
       var view = $('#d-view');
       $('#d-live').href = 'examples/' + t.name + '.html';
       {
-        view.innerHTML = '<a class="shot shot--detail" href="examples/' + t.name + '.html" target="_blank" rel="noopener" aria-label="Open the ' + esc(label(t.name)).toLowerCase() + ' diagram live (opens in a new tab)"><img id="d-img" src="previews/' + t.name + '.png" srcset="img/sm/' + t.name + '.png 800w, previews/' + t.name + '.png 1600w" sizes="(max-width: 900px) 100vw, 780px" decoding="async" width="' + t.w + '" height="' + t.h + '" alt="' + esc(label(t.name)) + ' diagram. ' + esc(t.question) + '"></a>';
+        view.innerHTML = '<a class="shot shot--detail" href="examples/' + t.name + '.html" target="_blank" rel="noopener" aria-label="Open the ' + esc(label(t.name)).toLowerCase() + ' diagram live (opens in a new tab)"><img id="d-img" src="previews/' + t.name + '.png" srcset="img/sm/' + t.name + '.png 800w, previews/' + t.name + '.png 1600w" sizes="(max-width: 900px) 100vw, 920px" decoding="async" width="' + t.w + '" height="' + t.h + '" alt="' + esc(label(t.name)) + ' diagram. ' + esc(t.question) + '"></a>';
       }
     }
     function select(name, focus) {
