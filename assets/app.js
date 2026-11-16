@@ -393,3 +393,21 @@
   }
   var s = document.createElement('script'); s.src = 'assets/vendor/lottie_light.min.js'; s.async = true; s.onload = start; document.head.appendChild(s);
 })();
+
+/* ---------- star count on the closing block (shown from 10 stars up) ---------- */
+(function starCount() {
+  var el = document.getElementById('star-n'); if (!el) return;
+  function show(n) { if (n >= 10) { el.textContent = n >= 1000 ? (n / 1000).toFixed(1).replace('.0', '') + 'k' : String(n); el.hidden = false; } }
+  var cached = null;
+  try { cached = JSON.parse(sessionStorage.getItem('archistry-stars') || 'null'); } catch (e) {}
+  if (cached && Date.now() - cached.t < 36e5) { show(cached.n); return; }
+  if (!window.fetch) return;
+  fetch('https://api.github.com/repos/abhishakec/archistry', { headers: { Accept: 'application/vnd.github+json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || typeof d.stargazers_count !== 'number') return;
+      show(d.stargazers_count);
+      try { sessionStorage.setItem('archistry-stars', JSON.stringify({ n: d.stargazers_count, t: Date.now() })); } catch (e) {}
+    })
+    .catch(function () {});
+})();

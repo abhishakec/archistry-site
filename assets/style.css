@@ -718,10 +718,6 @@
   .cta .btn:hover { background: #fff; }
   .cta .btn--primary { --_bg: var(--accent); --_ink: var(--accent-ink); --_bd: var(--accent); }
   .cta .btn--primary:hover { background: var(--accent-hover); }
-  .cta__star { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; margin: 2px 0 0; font-size: .8125rem; color: var(--ink-2); }
-  .cta__star svg { flex: none; width: 16px; height: 16px; color: #e8b53a; }
-  .cta__star a { font-weight: 600; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent); }
-  .cta__star a:hover { text-decoration-color: currentColor; }
 
   :root[data-theme="dark"] .cta { color: #f1eeff; border-color: rgb(255 255 255 / .08); background: radial-gradient(800px 360px at 100% 0, rgb(127 106 224 / .5), transparent 70%), radial-gradient(520px 300px at 0 100%, rgb(255 169 132 / .2), transparent 70%), #1b1838; }
   :root[data-theme="dark"] .cta::before { background-image: linear-gradient(rgb(255 255 255 / .045) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .045) 1px, transparent 1px); }
@@ -754,3 +750,30 @@
   :root:not([data-theme="light"]) .cta .btn--primary { --_bg: #fff; --_ink: #1e1b3a; --_bd: #fff; }
   :root:not([data-theme="light"]) .cta__star a { color: #ffd0b8; }
   }
+
+  /* star ask */
+  .cta__star { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px 14px; margin: 4px 0 0; padding: 12px 12px 12px 14px; border: 1px solid rgb(255 255 255 / .85); border-radius: 16px; background: rgb(255 255 255 / .6); font-size: .8125rem; color: var(--ink-2); }
+  .cta__starico { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: var(--pa-yellow); color: #d99a14; box-shadow: 0 0 0 1px rgb(217 154 20 / .25) inset; }
+  .cta__starico svg { width: 20px; height: 20px; color: inherit; }
+  .cta__startext { display: grid; gap: 2px; min-width: 0; line-height: 1.4; }
+  .cta__startext b { font-size: .875rem; font-weight: 650; color: var(--ink); }
+  .cta .btn.btn--star { gap: 7px; --_bg: var(--pa-yellow); --_ink: #5f4500; --_bd: #efcf79; white-space: nowrap; }
+  .btn--star svg { width: 15px; height: 15px; color: #d99a14; transition: transform .35s cubic-bezier(.3, 1.6, .4, 1); }
+  .btn--star em { font-style: normal; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: rgb(255 255 255 / .75); font-size: .75rem; }
+  .cta .btn--star:hover { background: #ffe9a8; }
+  .cta .btn--star:hover svg { transform: rotate(72deg) scale(1.25); }
+  @media (max-width: 640px) { .cta__star { grid-template-columns: auto minmax(0, 1fr); } .btn--star { grid-column: 1 / -1; justify-content: center; } }
+
+  /* dark: a real edge on the call to action card */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta { border: 1px solid transparent; background: radial-gradient(800px 360px at 100% 0, rgb(127 106 224 / .5), transparent 70%), radial-gradient(520px 300px at 0 100%, rgb(255 169 132 / .2), transparent 70%), linear-gradient(#1f1b45, #191638) padding-box, linear-gradient(135deg, rgb(168 150 255 / .7), rgb(255 255 255 / .1) 38%, rgb(255 255 255 / .06) 62%, rgb(255 169 132 / .5)) border-box; box-shadow: 0 0 0 1px rgb(0 0 0 / .35), 0 34px 80px -34px rgb(111 89 218 / .55), 0 1px 0 rgb(255 255 255 / .08) inset; }
+    :root:not([data-theme="light"]) .cta__star { border-color: rgb(255 255 255 / .12); background: rgb(255 255 255 / .05); color: #cfc8f3; }
+    :root:not([data-theme="light"]) .cta__startext b { color: #fff; }
+    :root:not([data-theme="light"]) .cta__starico { background: rgb(255 214 120 / .16); box-shadow: 0 0 0 1px rgb(255 214 120 / .35) inset; color: #ffd66e; }
+    :root:not([data-theme="light"]) .cta .btn.btn--star { --_bg: #ffe9a8; --_ink: #4d3800; --_bd: #ffe9a8; } }
+  :root[data-theme="dark"] .cta { border: 1px solid transparent; background: radial-gradient(800px 360px at 100% 0, rgb(127 106 224 / .5), transparent 70%), radial-gradient(520px 300px at 0 100%, rgb(255 169 132 / .2), transparent 70%), linear-gradient(#1f1b45, #191638) padding-box, linear-gradient(135deg, rgb(168 150 255 / .7), rgb(255 255 255 / .1) 38%, rgb(255 255 255 / .06) 62%, rgb(255 169 132 / .5)) border-box; box-shadow: 0 0 0 1px rgb(0 0 0 / .35), 0 34px 80px -34px rgb(111 89 218 / .55), 0 1px 0 rgb(255 255 255 / .08) inset; }
+  :root[data-theme="dark"] .cta__star { border-color: rgb(255 255 255 / .12); background: rgb(255 255 255 / .05); color: #cfc8f3; }
+  :root[data-theme="dark"] .cta__startext b { color: #fff; }
+  :root[data-theme="dark"] .cta__starico { background: rgb(255 214 120 / .16); box-shadow: 0 0 0 1px rgb(255 214 120 / .35) inset; color: #ffd66e; }
+  :root[data-theme="dark"] .cta .btn.btn--star { --_bg: #ffe9a8; --_ink: #4d3800; --_bd: #ffe9a8; }
+  .cta .cta__star a.btn--star, :root[data-theme="dark"] .cta .cta__star a.btn--star { color: var(--_ink); text-decoration: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta .cta__star a.btn--star { color: var(--_ink); text-decoration: none; } }
