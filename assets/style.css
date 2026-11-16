@@ -638,3 +638,10 @@
   :root[data-theme="dark"] .feature__stage::before, :root[data-theme="dark"] .detail__view::before { opacity: .45; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .feature__stage::before, :root:not([data-theme="light"]) .detail__view::before { opacity: .45; } }
   .detail__view > .detail__bar { position: relative; }
+
+  /* image options: label beside the choices so the side column matches the preview's height */
+  #builder { gap: 10px; }
+  #builder .ctl { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: center; gap: 12px; }
+  #builder .ctl > b { font-size: .9375rem; }
+  #builder .switch { margin-top: 4px; }
+  @media (max-width: 640px) { #builder .ctl { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
