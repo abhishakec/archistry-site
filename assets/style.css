@@ -794,3 +794,5 @@
   .ask[aria-checked="true"] .ask__n { background: var(--accent); color: var(--accent-ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
   /* lighter wash behind the prompt */
   .feature__stage .bubble { background: var(--surface); border-color: transparent; box-shadow: 0 1px 2px rgb(40 30 100 / .06), 0 8px 22px -12px rgb(60 40 140 / .25); }
+  /* prompt sits on top of the diagram in one window: a clear divider between them */
+  .feature__stage .bubble { border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; box-shadow: none; }
