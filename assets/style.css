@@ -796,3 +796,4 @@
   .what .ico svg.lt { width: 30px; height: 30px; }
   .what .ico svg.lt path { stroke: var(--pi) !important; }
   .what .ico svg.lt [fill]:not([fill="none"]) { fill: var(--pi); }
+  .btn--love .heart, .btn--love:hover .heart { color: #e5384f; }
