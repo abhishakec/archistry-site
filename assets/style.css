@@ -560,17 +560,12 @@
 
   /* what you get */
   .what-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
-  .what { position: relative; gap: 10px; padding: 26px; overflow: hidden; background: var(--surface); transition: transform .25s var(--ease), border-color .2s, box-shadow .25s; }
+  .what { position: relative; gap: 10px; padding: 26px; overflow: hidden; background: var(--surface);  }
   .what::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--peach)); opacity: 0; transition: opacity .25s; }
-  .what .ico { background: linear-gradient(135deg, var(--accent-soft), var(--peach-soft)); box-shadow: 0 1px 0 rgb(255 255 255 / .7) inset; transition: transform .35s cubic-bezier(.3, 1.5, .4, 1); }
+  .what .ico { background: linear-gradient(135deg, var(--accent-soft), var(--peach-soft)); box-shadow: 0 1px 0 rgb(255 255 255 / .7) inset;  }
   .what__n { position: absolute; top: 22px; right: 24px; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; color: var(--ink-2); opacity: .55; }
   .what h3 { margin-top: 8px; }
   .what__tag { align-self: end; justify-self: start; margin-top: 6px; display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); font-family: var(--font-mono); font-size: .75rem; color: var(--ink-2); }
-  @media (hover: hover) {
-    .what:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: var(--shadow-md); }
-    .what:hover::before { opacity: 1; }
-    .what:hover .ico { transform: rotate(-6deg) scale(1.08); }
-  }
   @media (max-width: 900px) { .what-grid { grid-template-columns: 1fr; } }
   .live-alt { display: none; }
   @media (max-width: 640px) {
@@ -796,3 +791,8 @@
   .feature__stage .bubble { background: var(--surface); border-color: transparent; box-shadow: 0 1px 2px rgb(40 30 100 / .06), 0 8px 22px -12px rgb(60 40 140 / .25); }
   /* prompt sits on top of the diagram in one window: a clear divider between them */
   .feature__stage .bubble { border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; box-shadow: none; }
+
+  .what .ico { overflow: hidden; }
+  .what .ico svg.lt { width: 30px; height: 30px; }
+  .what .ico svg.lt path { stroke: var(--pi) !important; }
+  .what .ico svg.lt [fill]:not([fill="none"]) { fill: var(--pi); }

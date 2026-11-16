@@ -411,3 +411,31 @@
     })
     .catch(function () {});
 })();
+
+/* what-you-get icons: useanimations Lottie icons (MIT), looped while the card is hovered or focused, finishing the cycle on leave */
+(function () {
+  var hosts = Array.prototype.slice.call(document.querySelectorAll('.what .ico[data-lottie]'));
+  if (!hosts.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  function start() {
+    hosts.forEach(function (host) {
+      var card = host.closest('.what'), fallback = host.querySelector('svg');
+      var a = window.lottie.loadAnimation({ container: host, renderer: 'svg', loop: false, autoplay: false, path: 'assets/icons/' + host.dataset.lottie + '.json' });
+      a.addEventListener('DOMLoaded', function () {
+        if (fallback) fallback.remove();
+        var s = host.querySelector('svg'); if (s) s.classList.add('lt');
+      });
+      var hovering = false;
+      function go() { hovering = true; a.loop = true; a.play(); }
+      function stop() { hovering = false; a.loop = false; }
+      a.addEventListener('complete', function () { if (!hovering) a.goToAndStop(0, true); });
+      card.addEventListener('mouseenter', go); card.addEventListener('focusin', go); card.addEventListener('mouseleave', stop); card.addEventListener('focusout', stop);
+    });
+  }
+  function ready() {
+    if (window.lottie) return start();
+    var tag = document.querySelector('script[src*="lottie_light"]');
+    if (!tag) { tag = document.createElement('script'); tag.src = 'assets/vendor/lottie_light.min.js'; tag.async = true; document.head.appendChild(tag); }
+    tag.addEventListener('load', start);
+  }
+  ready();
+})();

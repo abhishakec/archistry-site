@@ -41,4 +41,5 @@ Salesforce, Agentforce, Data Cloud and MuleSoft are trademarks of Salesforce, In
 
 ## Third-party
 
+- Card icon animations (grid, edit, image, shield, database, lock): useanimations Lottie icons (MIT), `assets/icons/`.
 - GitHub icon animation: useanimations "github" Lottie (MIT), `assets/github.json`, played with lottie-web 5.12.2 light build (MIT), `assets/vendor/`.
