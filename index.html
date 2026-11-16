@@ -141,12 +141,13 @@
 
 <!-- 2 · Try it -->
 <section class="sec sec--alt" id="try" aria-labelledby="h-try">
-  <div class="wrap grid">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 id="h-try">Plain requests, finished diagrams</h2>
+      <p class="lede">Pick a request. Each result is real Archistry output, unedited.</p>
+    </div>
+    <div class="grid">
     <div class="stack" style="grid-column: span 4; gap: 22px">
-      <div class="sec__head" style="margin:0">
-        <h2 id="h-try">Plain requests, finished diagrams</h2>
-        <p class="lede">Pick a request. Each result is real Archistry output, unedited.</p>
-      </div>
       <div class="ask-list" id="asks" role="radiogroup" aria-label="Example requests"></div>
     </div>
     <div class="result" style="grid-column: span 8" aria-live="polite">
@@ -163,6 +164,7 @@
         <a class="btn btn--sm" id="try-open" href="#">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         <a class="btn btn--sm btn--ghost" id="try-spec" href="#">Read the spec</a>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -202,13 +204,13 @@
 
 <!-- 4 · Edit anywhere -->
 <section class="sec sec--alt" id="edit" aria-labelledby="h-edit">
-  <div class="wrap grid">
-    <div class="stack" style="grid-column: span 5; gap: 22px">
-      <div class="sec__head" style="margin:0">
-        <h2 id="h-edit">Edit in draw.io or in the browser</h2>
-        <p class="lede">Both files come from the same model and convert into each other without loss.</p>
-      </div>
-      <div class="stack">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 id="h-edit">Edit in draw.io or in the browser</h2>
+      <p class="lede">Both files come from the same model and convert into each other without loss.</p>
+    </div>
+    <div class="grid edit-grid">
+      <div class="edit-cards" style="grid-column: span 5">
         <div class="card fmt">
           <img src="assets/icons/xml.svg" alt="" width="36" height="41" loading="lazy">
           <h3>Open the .drawio in draw.io</h3>
@@ -220,14 +222,14 @@
           <ul><li>One offline file, nothing to install</li><li>Move, resize, retext, recolour, connect, undo</li><li>Export PNG, JPG or SVG from the page</li></ul>
         </div>
       </div>
-    </div>
-    <div class="stack" style="grid-column: span 7; gap: 18px">
-      <div class="frame">
-        <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
-        <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy" style="height: min(58vh, 520px)"></iframe>
-      </div>
-      <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
-        <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
+      <div class="edit-view" style="grid-column: span 7">
+        <div class="frame">
+          <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
+          <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy"></iframe>
+        </div>
+        <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
+          <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
+        </div>
       </div>
     </div>
   </div>
@@ -235,12 +237,13 @@
 
 <!-- 5 · Images -->
 <section class="sec" id="export" aria-labelledby="h-export">
-  <div class="wrap grid">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 id="h-export">Images for your documents</h2>
+      <p class="lede">Export PNG, JPG or SVG for Word, Confluence and slides. Set the options, copy the command.</p>
+    </div>
+    <div class="grid">
     <div class="stack" style="grid-column: span 5; gap: 24px">
-      <div class="sec__head" style="margin:0">
-        <h2 id="h-export">Images for your documents</h2>
-        <p class="lede">Export PNG, JPG or SVG for Word, Confluence, Google Docs and slides. Set the options and copy the command.</p>
-      </div>
       <div class="builder" id="builder">
         <div class="ctl"><b id="l-fmt">Format</b><div class="tabs" role="radiogroup" aria-labelledby="l-fmt" data-ctl="format">
           <button class="tab" type="button" role="radio" aria-checked="true" data-v="png">PNG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="jpg">JPG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="svg">SVG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="all">All three</button></div></div>
@@ -264,6 +267,7 @@
         <span class="pill">Word</span><span class="pill">Confluence</span><span class="pill">Google Docs</span><span class="pill">Slides</span><span class="pill">README files</span>
       </div>
       <p class="fine">SVG needs only Node. PNG and JPG use the Chrome, Edge or Chromium already on your machine, headless. Without Node, use the Export menu in the HTML page. For PowerPoint, insert the SVG and choose Convert to Shape.</p>
+    </div>
     </div>
   </div>
 </section>
@@ -319,31 +323,44 @@
 
 <!-- 8 · Install -->
 <section class="sec sec--alt" id="install" aria-labelledby="h-install">
-  <div class="wrap grid" style="align-items: start">
-    <div class="stack" style="grid-column: span 5; gap: 26px">
-      <div class="sec__head" style="margin:0">
-        <h2 id="h-install">Install and use</h2>
-        <p class="lede">You need Node.js 18 or later. There is nothing to npm install.</p>
-      </div>
-      <ol class="steps">
-        <li class="step"><div><h3>Add the skill</h3><p>One command installs it into your agent. Update it the same way.</p></div></li>
-        <li class="step"><div><h3>Describe the diagram</h3><p>Name the type, the systems and who it is for.</p></div></li>
-        <li class="step"><div><h3>Open the result</h3><p>Edit the HTML in your browser or the .drawio in draw.io.</p></div></li>
-      </ol>
-      <a class="btn btn--primary" href="https://github.com/abhishakec/archistry">View Archistry on GitHub <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 id="h-install">Install and use</h2>
+      <p class="lede">You need Node.js 18 or later. There is nothing to npm install.</p>
     </div>
-    <div class="stack" style="grid-column: span 7; gap: 18px">
-      <div class="tabs" role="tablist" aria-label="Agent" id="agents"></div>
-      <div id="agent-panel" role="tabpanel" class="stack" tabindex="0" style="gap: 14px">
-        <p class="muted" id="agent-note"></p>
-        <div class="term"><div class="term__bar"><span id="agent-label">terminal</span><button class="copy" type="button" data-copy-from="#agent-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="agent-cmd"></code></pre></div>
+    <div class="grid install-grid">
+      <div class="panel" style="grid-column: span 5">
+        <h3 class="panel__t">Three steps</h3>
+        <ol class="steps">
+          <li class="step"><div><h3>Add the skill</h3><p>One command installs it into your agent. Update it the same way.</p></div></li>
+          <li class="step"><div><h3>Describe the diagram</h3><p>Name the type, the systems and who it is for.</p></div></li>
+          <li class="step"><div><h3>Open the result</h3><p>Edit the HTML in your browser or the .drawio in draw.io.</p></div></li>
+        </ol>
+        <a class="btn btn--primary panel__act" href="https://github.com/abhishakec/archistry">View Archistry on GitHub <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
-      <div>
-        <details class="faq"><summary>How should I word a request?</summary><div>Name the diagram type, the systems or objects, and who it is for. Ask for an image if you need one. For example: “Draw the integration architecture for order to cash, with the protocol on every interface, and give me a PNG.”</div></details>
-        <details class="faq"><summary>Does it work without an AI agent?</summary><div>Yes. Run <code>archistry init solution-architecture -o arch.json</code> for a complete starter spec, edit it, then <code>archistry build arch.json --format drawio,html,png</code>.</div></details>
-        <details class="faq"><summary>Does my data leave my machine?</summary><div>No. The build runs in Node on your machine, image export runs in your own headless browser, and the HTML output makes no network requests.</div></details>
-        <details class="faq"><summary>Is it only for Salesforce?</summary><div>It is built and optimised for Salesforce work: the types, notation, icons and examples are all Salesforce. The engine itself is platform-neutral, so it can be adapted for other platforms.</div></details>
-        <details class="faq"><summary>Can I use my company colours?</summary><div>Yes. Put a <code>brand.json</code> beside your spec. Palette and font follow your brand; notation such as crow's feet and BPMN shapes stays standard.</div></details>
+      <div class="panel" style="grid-column: span 7">
+        <h3 class="panel__t">Choose your agent</h3>
+        <div class="tabs" role="tablist" aria-label="Agent" id="agents"></div>
+        <div id="agent-panel" role="tabpanel" class="stack" tabindex="0" style="gap: 14px">
+          <p class="muted" id="agent-note"></p>
+          <div class="term"><div class="term__bar"><span id="agent-label">terminal</span><button class="copy" type="button" data-copy-from="#agent-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="agent-cmd"></code></pre></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faqs" id="faq" aria-labelledby="h-faq">
+      <h3 id="h-faq">Frequently asked questions</h3>
+      <div class="faq-grid">
+        <div>
+          <details class="faq"><summary>How should I word a request?</summary><div>Name the diagram type, the systems or objects, and who it is for. Ask for an image if you need one. For example: “Draw the integration architecture for order to cash, with the protocol on every interface, and give me a PNG.”</div></details>
+          <details class="faq"><summary>Does it work without an AI agent?</summary><div>Yes. Run <code>archistry init solution-architecture -o arch.json</code> for a complete starter spec, edit it, then <code>archistry build arch.json --format drawio,html,png</code>.</div></details>
+          <details class="faq"><summary>Does my data leave my machine?</summary><div>No. The build runs in Node on your machine, image export runs in your own headless browser, and the HTML output makes no network requests.</div></details>
+        </div>
+        <div>
+          <details class="faq"><summary>Is it only for Salesforce?</summary><div>It is built and optimised for Salesforce work: the types, notation, icons and examples are all Salesforce. The engine itself is platform-neutral, so it can be adapted for other platforms.</div></details>
+          <details class="faq"><summary>Can I use my company colours?</summary><div>Yes. Put a <code>brand.json</code> beside your spec. Palette and font follow your brand; notation such as crow’s feet and BPMN shapes stays standard.</div></details>
+          <details class="faq"><summary>How do I update it?</summary><div>Run <code>npx skills update</code> if you installed with <code>npx skills add</code>, or <code>git pull</code> inside the folder if you cloned it.</div></details>
+        </div>
       </div>
     </div>
   </div>
@@ -368,9 +385,9 @@
       <div class="foot__brand">
         <a class="brand" href="#top"><img src="brand/archistry-mark.svg" alt="" width="32" height="32" loading="lazy">Archistry</a>
         <p>Salesforce diagrams from a sentence, as editable draw.io files and interactive HTML pages.</p>
-        <div class="foot__me"><span><b>Abhishake Chandra</b>, Salesforce architect</span>
-          <a class="soc" href="https://github.com/abhishakec" aria-label="Abhishake Chandra on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-github"/></svg></a>
-          <a class="soc" href="https://www.linkedin.com/in/abhishakec/" aria-label="Abhishake Chandra on LinkedIn"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+        <div class="foot__me">
+          <a class="btn btn--sm btn--love" href="https://github.com/abhishakec"><span>Built with love</span><span class="heart" aria-hidden="true">♥</span><span>by @abhishakec</span></a>
+          <a class="in-badge" href="https://www.linkedin.com/in/abhishakec/"><i><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-linkedin"/></svg></i><span>Find me on LinkedIn</span></a>
         </div>
       </div>
       <nav class="foot__col" aria-label="Guide"><h3>Guide</h3><ul><li><a href="#try">Try it</a></li><li><a href="#gallery">40 diagram types</a></li><li><a href="#edit">Editing</a></li><li><a href="#export">Images</a></li><li><a href="#install">Install and use</a></li></ul></nav>

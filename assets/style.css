@@ -104,7 +104,8 @@
   .sec--auto { min-block-size: 0; }
   .sec__head { display: grid; gap: 14px; margin-bottom: clamp(22px, 4vh, 40px); max-width: 60ch; }
   .sec__head--row { gap: 10px; margin-bottom: clamp(16px, 3vh, 26px); }
-  .sec__head .lede { max-width: 60ch; }
+  .sec__head { max-width: none; } .sec__head .lede { max-width: none; }
+  @media (min-width: 1000px) { .sec__head h2, .sec__head .lede { white-space: nowrap; } }
   .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: clamp(20px, 2.4vw, 36px); align-items: center; }
   .stack { display: grid; gap: 14px; }
   .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
@@ -466,3 +467,39 @@
     .caret { display: none; }
   }
 }
+
+  /* ---------- edit section: equal-height columns ---------- */
+  .edit-grid { align-items: stretch; }
+  .edit-cards { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; }
+  .edit-cards .fmt { grid-template-columns: auto 1fr; column-gap: 20px; row-gap: 8px; align-content: center; align-items: start; padding: 24px; }
+  .edit-cards .fmt img { grid-row: span 2; margin-top: 2px; }
+  .edit-view { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .edit-view .frame { flex: 1; display: flex; flex-direction: column; }
+  .edit-view .live { flex: 1; height: auto; min-height: 360px; }
+  @media (max-width: 900px) { .edit-cards { grid-template-rows: none; } .edit-view .live { min-height: 320px; } }
+
+  /* ---------- install: two panels, then FAQ ---------- */
+  .install-grid { align-items: stretch; }
+  .panel { display: grid; gap: 20px; align-content: start; padding: clamp(20px, 2.4vw, 32px); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-sm); min-width: 0; }
+  .panel__t { font-family: var(--font-mono); font-weight: 500; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+  .panel .steps { gap: 20px; }
+  .panel__act { justify-self: start; margin-top: 4px; }
+  .faqs { margin-top: clamp(32px, 6vh, 56px); padding-top: clamp(24px, 4vh, 36px); border-top: 1px solid var(--line-2); }
+  .faqs > h3 { font-size: clamp(1.25rem, 1rem + .8vw, 1.625rem); margin-bottom: 8px; }
+  .faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; }
+  @media (max-width: 900px) { .faq-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- footer: author button and LinkedIn badge ---------- */
+  .foot__me { display: grid; gap: 12px; justify-items: start; }
+  .btn--love { gap: 6px; background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .btn--love:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn--love .heart { color: var(--peach); display: inline-block; animation: beat 2.4s ease-in-out infinite; }
+  @keyframes beat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.25); } 24% { transform: scale(1); } 36% { transform: scale(1.18); } 48% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .btn--love .heart { animation: none; } }
+  .in-badge { display: inline-flex; align-items: stretch; height: 34px; border-radius: 5px; overflow: hidden; text-decoration: none; color: #fff; font-family: var(--font-body, inherit); font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: transform .18s var(--ease), box-shadow .18s; }
+  .in-badge i { display: grid; place-items: center; width: 38px; background: #555; }
+  .in-badge svg { width: 16px; height: 16px; }
+  .in-badge span { display: grid; place-items: center; padding: 0 14px; background: #0a66c2; }
+  .in-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgb(10 102 194 / .35); }
+  .in-badge:active { transform: scale(.97); }
+  .panel .tabs { gap: 6px; } .panel .tab { padding-inline: 12px; }
