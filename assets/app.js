@@ -159,7 +159,7 @@
     }
     function play() {
       reset(); layout();
-      if (reduce) { showAll(); later(hotspots, 5000); return; }
+      if (reduce) { showAll(); later(hotspots, 2000); return; }
       later(function () { frame.classList.add('is-on'); }, 150);                         /* 1. the window appears */
       later(function () { prompt.classList.add('is-chat'); }, 900);                      /* 2. the user icon and the chat box */
       later(function () {                                                                /* 3. the request is typed */
@@ -170,7 +170,7 @@
       later(function () { chat.classList.remove('is-typing'); chat.classList.add('is-done', 'is-sent'); if (caret) caret.style.display = 'none'; }, typedEnd);   /* send */
       later(function () { shot.classList.add('is-in'); }, typedEnd + 450);               /* 4. the diagram appears */
       callouts.forEach(function (c2, i) { later(function () { showCallout(i); }, typedEnd + 1700 + i * 260); });   /* 5. the anatomy, box by box */
-      later(hotspots, typedEnd + 1700 + callouts.length * 260 + 5000);                   /* 6. after 5 s the boxes hide, dots stay on the diagram */
+      later(hotspots, typedEnd + 1700 + callouts.length * 260 + 2000);                   /* 6. after 2 s the boxes hide, dots stay on the diagram */
     }
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 120); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
