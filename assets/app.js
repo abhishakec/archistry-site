@@ -412,7 +412,7 @@
     .catch(function () {});
 })();
 
-/* what-you-get icons: useanimations Lottie icons (MIT), looped while the card is hovered or focused, finishing the cycle on leave */
+/* what-you-get icons: useanimations Lottie icons (MIT), played once each time the card is hovered or focused */
 (function () {
   var hosts = Array.prototype.slice.call(document.querySelectorAll('.what .ico[data-lottie]'));
   if (!hosts.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -424,11 +424,10 @@
         if (fallback) fallback.remove();
         var s = host.querySelector('svg'); if (s) s.classList.add('lt');
       });
-      var hovering = false;
-      function go() { hovering = true; a.loop = true; a.play(); }
-      function stop() { hovering = false; a.loop = false; }
-      a.addEventListener('complete', function () { if (!hovering) a.goToAndStop(0, true); });
-      card.addEventListener('mouseenter', go); card.addEventListener('focusin', go); card.addEventListener('mouseleave', stop); card.addEventListener('focusout', stop);
+      a.addEventListener('complete', function () { a.goToAndStop(0, true); });
+      function go() { a.goToAndPlay(0, true); }
+      card.addEventListener('mouseenter', go);
+      card.addEventListener('focusin', function (e) { if (!e.relatedTarget || !card.contains(e.relatedTarget)) go(); });
     });
   }
   function ready() {
