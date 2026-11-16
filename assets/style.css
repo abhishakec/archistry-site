@@ -243,7 +243,7 @@
   .type[aria-selected="true"] { background: var(--ink); color: var(--bg); }
   .type__dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: color-mix(in srgb, var(--st, var(--accent)) 60%, var(--accent)); }
   .detail { display: grid; gap: 14px; }
-  .detail__head { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between; }
+  .detail__head { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; justify-content: flex-start; }
   .detail__head h3 { font-size: 1.375rem; }
   .live { width: 100%; border: 0; background: #fff; height: min(58vh, 540px); }
   .shot--detail img { max-height: min(58vh, 540px); width: 100%; object-fit: contain; }
@@ -490,16 +490,14 @@
   @media (max-width: 900px) { .faq-grid { grid-template-columns: 1fr; } }
 
   /* ---------- footer: author button and LinkedIn badge ---------- */
-  .foot__me { display: grid; gap: 12px; justify-items: start; }
+  .foot__me { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
   .btn--love { gap: 6px; background: var(--ink); border-color: var(--ink); color: var(--bg); }
   .btn--love:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
   .btn--love .heart { color: var(--peach); display: inline-block; animation: beat 2.4s ease-in-out infinite; }
   @keyframes beat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.25); } 24% { transform: scale(1); } 36% { transform: scale(1.18); } 48% { transform: scale(1); } }
   @media (prefers-reduced-motion: reduce) { .btn--love .heart { animation: none; } }
-  .in-badge { display: inline-flex; align-items: stretch; height: 34px; border-radius: 5px; overflow: hidden; text-decoration: none; color: #fff; font-family: var(--font-body, inherit); font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; transition: transform .18s var(--ease), box-shadow .18s; }
-  .in-badge i { display: grid; place-items: center; width: 38px; background: #555; }
-  .in-badge svg { width: 16px; height: 16px; }
-  .in-badge span { display: grid; place-items: center; padding: 0 14px; background: #0a66c2; }
+  .in-badge { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #0a66c2; color: #fff; text-decoration: none; transition: transform .18s var(--ease), box-shadow .18s; }
+  .in-badge svg { width: 20px; height: 20px; }
   .in-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgb(10 102 194 / .35); }
   .in-badge:active { transform: scale(.97); }
   .panel .tabs { gap: 6px; } .panel .tab { padding-inline: 12px; }
@@ -534,15 +532,6 @@
   }
 
   /* ---------- footer: brand card and facts ---------- */
-  .foot__brand { padding: clamp(20px, 2.4vw, 28px); border: 1px solid var(--line); border-radius: var(--r-xl); background: var(--surface); box-shadow: var(--shadow-sm); gap: 18px; }
-  .foot__facts { display: flex; flex-wrap: wrap; gap: 8px; }
-  .foot__facts li { display: inline-flex; align-items: center; gap: 7px; min-height: 28px; padding: 0 12px 0 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); font-size: .75rem; font-weight: 600; color: var(--ink-2); }
-  .foot__facts li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--peach); }
-  .foot__col a { position: relative; }
-  .foot__col a::after { content: "→"; margin-left: 6px; opacity: 0; transform: translateX(-4px); transition: opacity .2s, transform .2s var(--ease); }
-  .foot__col a:hover::after { opacity: 1; transform: none; }
-  .foot__col h3 { padding-bottom: 8px; border-bottom: 1px solid var(--line); }
-  .foot__grid { align-items: start; }
   .feature--flip .feature__stage { grid-template-rows: 1fr auto; align-content: stretch; }
   .feature__stage { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .feature__stage .keys { justify-content: center; color: color-mix(in srgb, var(--ink) 75%, transparent); }
@@ -550,3 +539,28 @@
   .feature .ask { min-height: 44px; }
   .feature .term pre { white-space: pre-wrap; word-break: break-word; }
   .feature__stage > .frame { display: block; } .feature--flip .feature__stage > .frame { display: flex; flex-direction: column; }
+  .feature__side { align-content: start; }
+  .feature--flip .feature__side { align-content: start; }
+
+  /* hero title: two lines, then the subtitle */
+  .hero h1 .l { display: block; white-space: nowrap; }
+  .hero h1 { font-size: min(3.4rem, calc((100vw - 2 * var(--margin)) / 10.8)); }
+  @media (min-width: 901px) { .hero h1 { font-size: min(3.1vw, 2.8rem); } }
+
+  /* section eyebrows */
+  .sec__head .eyebrow { margin-bottom: 2px; }
+
+  /* what you get */
+  .what-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+  .what { position: relative; gap: 10px; padding: 26px; overflow: hidden; background: var(--surface); transition: transform .25s var(--ease), border-color .2s, box-shadow .25s; }
+  .what::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--peach)); opacity: 0; transition: opacity .25s; }
+  .what .ico { background: linear-gradient(135deg, var(--accent-soft), var(--peach-soft)); box-shadow: 0 1px 0 rgb(255 255 255 / .7) inset; transition: transform .35s cubic-bezier(.3, 1.5, .4, 1); }
+  .what__n { position: absolute; top: 22px; right: 24px; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; color: var(--ink-2); opacity: .55; }
+  .what h3 { margin-top: 8px; }
+  .what__tag { align-self: end; justify-self: start; margin-top: 6px; display: inline-flex; align-items: center; min-height: 28px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); font-family: var(--font-mono); font-size: .75rem; color: var(--ink-2); }
+  @media (hover: hover) {
+    .what:hover { transform: translateY(-4px); border-color: var(--line-2); box-shadow: var(--shadow-md); }
+    .what:hover::before { opacity: 1; }
+    .what:hover .ico { transform: rotate(-6deg) scale(1.08); }
+  }
+  @media (max-width: 900px) { .what-grid { grid-template-columns: 1fr; } }
