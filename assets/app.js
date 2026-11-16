@@ -41,12 +41,12 @@
   var root = document.documentElement;
   var themeBtn = $('#theme');
   if (themeBtn) themeBtn.addEventListener('click', function () {
-    var cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var cur = root.dataset.theme || 'light';
     var next = cur === 'dark' ? 'light' : 'dark';
     root.dataset.theme = next; themeBtn.setAttribute('aria-label', 'Switch to ' + cur + ' theme');
     try { localStorage.setItem('archistry-theme', next); } catch (e) { /* storage can be blocked */ }
   });
-  if (themeBtn) themeBtn.setAttribute('aria-label', 'Switch to ' + ((root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark') + ' theme');
+  if (themeBtn) themeBtn.setAttribute('aria-label', 'Switch to ' + ((root.dataset.theme || 'light') === 'dark' ? 'light' : 'dark') + ' theme');
 
   /* ---------- nav ---------- */
   var menuBtn = $('.menu-btn'), links = $('#nav-links');

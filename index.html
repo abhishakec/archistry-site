@@ -7,7 +7,7 @@
   diagram wipes in; the try-it result wipes in on every pick. No scroll reveals, no tilt, no invented proof.
   Everything shown is real Archistry output (examples/ and previews/ are built from the repo by scripts/build-site.mjs).
 -->
-<html lang="en" data-type="software" data-radius="soft" data-motion="on">
+<html lang="en" data-theme="light" data-type="software" data-radius="soft" data-motion="on">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,7 @@
 <meta name="site-kind" content="software">
 <title>Archistry: architect-grade Salesforce diagrams for AI agents</title>
 <meta name="description" content="Describe a Salesforce diagram in plain language and get an editable draw.io file and an interactive HTML page. 40 diagram types, from discovery to go-live. Free and MIT-licensed.">
-<meta name="theme-color" content="#f8f6fc" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0c1f" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f8f6fc">
 <link rel="canonical" href="https://abhishakec.github.io/archistry-site/">
 <link rel="icon" type="image/svg+xml" href="brand/archistry-mark.svg">
 <meta property="og:type" content="website">
@@ -29,7 +28,7 @@
 <link rel="preload" href="brand/fonts/inter-latin-400-normal.woff" as="font" type="font/woff" crossorigin>
 <script>
   document.documentElement.classList.add('js');
-  try { var t = localStorage.getItem('archistry-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  try { var t = localStorage.getItem('archistry-theme'); document.documentElement.dataset.theme = (t === 'dark') ? 'dark' : 'light'; } catch (e) {}
 </script>
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Archistry","description":"An AI-agent skill that draws Salesforce diagrams as editable draw.io files and interactive HTML pages.","codeRepository":"https://github.com/abhishakec/archistry","license":"https://opensource.org/licenses/MIT","programmingLanguage":"JavaScript","runtimePlatform":"Node.js 18+"}</script>
