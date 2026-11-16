@@ -241,7 +241,7 @@
   .ask[aria-checked="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent) inset; }
   .ask[aria-checked="true"] .ask__n { background: var(--accent); color: var(--accent-ink); }
   .result { display: grid; gap: 14px; }
-  .bubble { padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-md) var(--r-md) var(--r-md) 4px; background: var(--surface); font-size: 1rem; min-height: 78px; }
+  .bubble { padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); font-size: 1rem; min-height: 78px; }
   .files { display: flex; flex-wrap: wrap; gap: 8px; }
   .files .pill { font-family: var(--font-mono); font-weight: 500; }
 
@@ -641,7 +641,7 @@
   /* Diagram stage surface: pale lavender with flowing contour lines, a soft peach glow and fine grain */
   .feature__stage, .detail__view { position: relative; isolation: isolate; background:
       url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%22160%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.9%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%20.25%20%200%200%200%200%20.2%20%200%200%200%200%20.45%20%200%200%200%20.35%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22160%22%20height%3D%22160%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E") 0 0 / 160px 160px,
-      radial-gradient(60% 70% at 4% 6%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%),
+      radial-gradient(60% 70% at 4% 6%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 70%),
       radial-gradient(55% 65% at 96% 94%, color-mix(in srgb, var(--peach) 46%, transparent), transparent 72%),
       radial-gradient(40% 45% at 92% 8%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
       color-mix(in srgb, var(--accent-soft) 55%, var(--surface)); }
@@ -790,3 +790,7 @@
 
   :root[data-theme="dark"] #d-stage { color: #1e1b3a; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #d-stage { color: #1e1b3a; } }
+  /* picked request: the number stays clearly visible on the selected row */
+  .ask[aria-checked="true"] .ask__n { background: var(--accent); color: var(--accent-ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent); }
+  /* lighter wash behind the prompt */
+  .feature__stage .bubble { background: var(--surface); border-color: transparent; box-shadow: 0 1px 2px rgb(40 30 100 / .06), 0 8px 22px -12px rgb(60 40 140 / .25); }
