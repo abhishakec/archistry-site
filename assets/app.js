@@ -349,12 +349,14 @@
   (function install() {
     var tabs = $('#agents'); if (!tabs) return;
     var clone = 'git clone https://github.com/abhishakec/archistry.git';
+    var up = '\n\n# Update to a new release\n';
     var agents = [
-      { id: 'Claude Code', note: 'Put the folder in ~/.claude/skills for all projects, or in .claude/skills inside one project. It triggers on diagram requests.', label: 'terminal', cmd: clone + ' ~/.claude/skills/archistry\nnode ~/.claude/skills/archistry/scripts/archistry.mjs doctor' },
-      { id: 'Claude desktop', note: 'Clone the folder, then add it as a skill. It triggers the same way.', label: 'terminal', cmd: clone + '\nnode archistry/scripts/archistry.mjs doctor' },
-      { id: 'GitHub Copilot', note: 'Clone it into your repository and add one line to the Copilot instructions.', label: 'terminal', cmd: clone + ' archistry\necho "For any Salesforce diagram request, follow archistry/SKILL.md." >> .github/copilot-instructions.md' },
-      { id: 'Cursor', note: 'Clone it and add a rule that points at SKILL.md.', label: 'terminal', cmd: clone + ' archistry\n# Cursor rule: "For any Salesforce diagram request, follow archistry/SKILL.md."' },
-      { id: 'Gemini CLI, Codex', note: 'Point the agent at SKILL.md. Any agent that can read files and run node can use it.', label: 'terminal', cmd: clone + ' archistry\nnode archistry/scripts/archistry.mjs doctor' }
+      { id: 'npx skills', note: 'Finds the agents on your machine (Claude Code, Copilot, Cursor, Gemini CLI, Codex and more) and installs for the ones you pick. Add -g to install for every project.', label: 'terminal', cmd: 'npx skills add abhishakec/archistry' + up + 'npx skills update' },
+      { id: 'Claude Code', note: 'Put the folder in ~/.claude/skills for all projects, or in .claude/skills inside one project. It triggers on diagram requests.', label: 'terminal', cmd: clone + ' ~/.claude/skills/archistry\nnode ~/.claude/skills/archistry/scripts/archistry.mjs doctor' + up + 'git -C ~/.claude/skills/archistry pull' },
+      { id: 'Desktop', note: 'Clone the folder, then add it as a skill. It triggers the same way.', label: 'terminal', cmd: clone + '\nnode archistry/scripts/archistry.mjs doctor' + up + 'git -C archistry pull' },
+      { id: 'Copilot', note: 'Clone it into your repository and add one line to the Copilot instructions.', label: 'terminal', cmd: clone + ' archistry\necho "For any Salesforce diagram request, follow archistry/SKILL.md." >> .github/copilot-instructions.md' + up + 'git -C archistry pull' },
+      { id: 'Cursor', note: 'Clone it and add a rule that points at SKILL.md.', label: 'terminal', cmd: clone + ' archistry\n# Cursor rule: "For any Salesforce diagram request, follow archistry/SKILL.md."' + up + 'git -C archistry pull' },
+      { id: 'Gemini, Codex', note: 'Point the agent at SKILL.md. Any agent that can read files and run node can use it.', label: 'terminal', cmd: clone + ' archistry\nnode archistry/scripts/archistry.mjs doctor' + up + 'git -C archistry pull' }
     ];
     tabs.innerHTML = agents.map(function (a, i) { return '<button class="tab" type="button" role="tab" id="ag' + i + '" aria-selected="' + (i === 0) + '" aria-controls="agent-panel" tabindex="' + (i === 0 ? 0 : -1) + '">' + esc(a.id) + '</button>'; }).join('');
     var panel = $('#agent-panel');
@@ -364,7 +366,7 @@
       panel.setAttribute('aria-labelledby', 'ag' + i);
       $('#agent-note').textContent = a.note; $('#agent-label').textContent = a.label;
       var c = $('#agent-cmd'); c.dataset.plain = a.cmd;
-      c.innerHTML = a.cmd.split('\n').map(function (l) { return l.charAt(0) === '#' ? '<span class="c">' + esc(l) + '</span>' : '<span class="p">$</span> ' + esc(l); }).join('\n');
+      c.innerHTML = a.cmd.split('\n').map(function (l) { return l === '' ? '' : l.charAt(0) === '#' ? '<span class="c">' + esc(l) + '</span>' : '<span class="p">$</span> ' + esc(l); }).join('\n');
     }
     tabs.addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (b) show($$('.tab', tabs).indexOf(b)); });
     tabs.addEventListener('keydown', function (e) {
