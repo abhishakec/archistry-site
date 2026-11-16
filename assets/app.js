@@ -259,7 +259,10 @@
       $('#d-name').textContent = label(t.name);
       var pill = $('#d-stage'); pill.textContent = t.stage; pill.style.background = stageVar(t.stage);
       $('#d-q').textContent = t.question;
-      $('#d-ask').textContent = 'Ask: “' + t.ask + '”';
+      $('#d-ask').textContent = '“' + t.ask + '”';
+      $('#d-file').textContent = t.name + '.html';
+      $('#d-eng').textContent = 'layout: ' + (t.engine || 'auto');
+      $('#d-open').href = 'examples/' + t.name + '.html';
       $('#d-drawio').href = 'examples/' + t.name + '.drawio';
       $('#d-spec').href = 'examples/' + t.name + '.json';
       var view = $('#d-view');

@@ -192,17 +192,21 @@
         <noscript><p class="muted">Turn on JavaScript to browse the types, or see the <a href="https://github.com/abhishakec/archistry#-diagram-types">full gallery on GitHub</a>.</p></noscript>
       </div>
       <div class="detail" style="grid-column: span 8">
-        <div class="detail__head"><h3 id="d-name"></h3><span class="pill" id="d-stage"></span></div>
-        <p class="muted" id="d-q"></p>
-        <div class="frame">
-          <div class="frame__body" id="d-view"><div class="shot shot--detail"><img id="d-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></div></div>
+        <div class="detail__head">
+          <div class="detail__title"><h3 id="d-name"></h3><span class="pill" id="d-stage"></span></div>
+          <span class="detail__eng" id="d-eng"></span>
         </div>
-        <div class="row">
+        <p class="detail__q" id="d-q"></p>
+        <div class="detail__view">
+          <div class="detail__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="d-file"></span><a class="detail__open" id="d-open" href="#" target="_blank" rel="noopener">Open live <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+          <div class="frame__body" id="d-view"></div>
+        </div>
+        <div class="detail__ask"><span class="detail__who" aria-hidden="true"><svg><use href="#i-user"/></svg></span><div><small>Ask your agent</small><p id="d-ask"></p></div></div>
+        <div class="row detail__act">
           <a class="btn btn--primary btn--sm" id="d-live" href="#" target="_blank" rel="noopener">Open it live in a new tab <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--sm" id="d-drawio" href="#" download>Download the draw.io file</a>
           <a class="btn btn--sm btn--ghost" id="d-spec" href="#" target="_blank" rel="noopener">Read the spec</a>
         </div>
-        <p class="fine" id="d-ask"></p>
       </div>
     </div>
   </div>
