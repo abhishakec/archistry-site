@@ -302,7 +302,7 @@
 
   /* ---------- the editor iframe loads when it nears the screen ---------- */
   (function lazyFrame() {
-    var f = $('#edit-frame'); if (!f) return;
+    var f = $('#edit-frame'); if (!f || getComputedStyle(f).display === 'none') return;
     var load = function () { if (!f.src && f.dataset.src) f.src = f.dataset.src; };
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '600px' }).observe(f);

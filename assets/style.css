@@ -564,3 +564,11 @@
     .what:hover .ico { transform: rotate(-6deg) scale(1.08); }
   }
   @media (max-width: 900px) { .what-grid { grid-template-columns: 1fr; } }
+  .live-alt { display: none; }
+  @media (max-width: 640px) {
+    .feature .live { display: none; }
+    .live-alt { display: grid; gap: 14px; padding: 0 0 16px; justify-items: center; background: var(--surface); }
+    .live-alt .shot { width: 100%; border-bottom: 1px solid var(--line); }
+    .live-alt img { width: 100%; height: auto; }
+  }
+  @media (max-width: 640px) { .feature__stage .keys { display: none; } }
