@@ -43,9 +43,10 @@
   if (themeBtn) themeBtn.addEventListener('click', function () {
     var cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     var next = cur === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
+    root.dataset.theme = next; themeBtn.setAttribute('aria-label', 'Switch to ' + cur + ' theme');
     try { localStorage.setItem('archistry-theme', next); } catch (e) { /* storage can be blocked */ }
   });
+  if (themeBtn) themeBtn.setAttribute('aria-label', 'Switch to ' + ((root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')) === 'dark' ? 'light' : 'dark') + ' theme');
 
   /* ---------- nav ---------- */
   var menuBtn = $('.menu-btn'), links = $('#nav-links');
@@ -94,15 +95,79 @@
     }
   });
 
-  /* ---------- hero: the prompt types, then the diagram wipes in ---------- */
+  /* ---------- hero: window, chat box, typing, send, diagram, callouts with arrows ---------- */
   (function hero() {
-    var el = $('#hero-typed'), shot = $('#hero-shot');
-    if (!el) return;
-    var full = el.textContent;
-    var caret = el.parentNode.querySelector('.caret');
-    var type = typer(el, function () { wipe(shot); if (caret) setTimeout(function () { caret.style.display = 'none'; }, 1200); });
-    if (reduce) { shot.classList.add('is-in'); return; }
-    setTimeout(function () { type(full, 17); }, 450);
+    var vis = $('#hero-vis'); if (!vis) return;
+    var frame = $('#hero-frame', vis), chat = $('.chat', vis), prompt = $('.prompt', vis), typed = $('#hero-typed'), shot = $('#hero-shot'), svg = $('.arrows', vis);
+    var callouts = $$('.callout', vis), full = typed.textContent, caret = $('.caret', vis), timers = [], paths = [];
+    var NS = 'http://www.w3.org/2000/svg';
+    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+    /* arrows: a curve from each callout to its spot in the diagram (x and y are percent of the picture) */
+    function layout() {
+      if (getComputedStyle(svg).display === 'none') return;
+      /* layout positions, not getBoundingClientRect: the window and callouts are still scaling in when this runs */
+      function pos(el) { var x = 0, y = 0; while (el && el !== vis) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return { x: x, y: y }; }
+      var img = $('img', shot), vr = { width: vis.offsetWidth, height: vis.offsetHeight }, ip = pos(img), iw = img.offsetWidth, ih = img.offsetHeight;
+      var on = paths.length && paths[0].classList.contains('on');
+      svg.setAttribute('viewBox', '0 0 ' + vr.width + ' ' + vr.height);
+      svg.innerHTML = ''; paths = [];
+      var fp = pos(frame), fw = frame.offsetWidth, gy = fp.y, gh = ip.y - fp.y;
+      var defs = document.createElementNS(NS, 'defs'), mk = document.createElementNS(NS, 'mask');
+      mk.setAttribute('id', 'hero-gap'); mk.setAttribute('maskUnits', 'userSpaceOnUse'); mk.setAttribute('x', 0); mk.setAttribute('y', 0); mk.setAttribute('width', vr.width); mk.setAttribute('height', vr.height);
+      var white = document.createElementNS(NS, 'rect'); white.setAttribute('width', vr.width); white.setAttribute('height', vr.height); white.setAttribute('fill', '#fff');
+      var black = document.createElementNS(NS, 'rect'); black.setAttribute('x', fp.x); black.setAttribute('y', gy + 1); black.setAttribute('width', fw); black.setAttribute('height', gh - 1); black.setAttribute('fill', '#000');
+      mk.appendChild(white); mk.appendChild(black); defs.appendChild(mk); svg.appendChild(defs);
+      callouts.forEach(function (co, i) {
+        var top = !!co.closest('.anat--top'), cp = pos(co), cw = co.offsetWidth, ch = co.offsetHeight;
+        var x1 = cp.x + cw / 2, y1 = top ? cp.y + ch : cp.y;
+        var tx = ip.x + iw * parseFloat(co.dataset.x) / 100, ty = ip.y + ih * parseFloat(co.dataset.y) / 100;
+        var my = (y1 + ty) / 2, d = 'M' + x1 + ' ' + y1 + ' C ' + x1 + ' ' + my + ', ' + tx + ' ' + my + ', ' + tx + ' ' + (ty + (top ? -9 : 9));
+        var halo = document.createElementNS(NS, 'path'); halo.setAttribute('d', d); halo.setAttribute('pathLength', '1'); halo.setAttribute('class', 'halo');
+        var p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); p.setAttribute('pathLength', '1'); p.setAttribute('class', 'arrow');
+        var ah = document.createElementNS(NS, 'path'); ah.setAttribute('class', 'ah');
+        var dir = top ? 1 : -1; ah.setAttribute('d', 'M' + (tx - 6) + ' ' + (ty - 11 * dir) + ' L' + (tx + 6) + ' ' + (ty - 11 * dir) + ' L' + tx + ' ' + ty + ' Z');
+        if (top) { halo.setAttribute('mask', 'url(#hero-gap)'); p.setAttribute('mask', 'url(#hero-gap)'); }
+        [halo, p, ah].forEach(function (n) { svg.appendChild(n); });
+        paths.push(p, halo, ah);
+        if (on || reduce) [halo, p, ah].forEach(function (n) { n.classList.add('on'); });
+      });
+    }
+    function showCallout(i) {
+      callouts[i].classList.add('on');
+      var k = i * 3, ns = [paths[k + 1], paths[k], paths[k + 2]];
+      ns.forEach(function (n) { if (n) n.classList.add('on'); });
+    }
+    function reset() {
+      timers.forEach(clearTimeout); timers = [];
+      frame.classList.remove('is-on'); prompt.classList.remove('is-chat'); chat.classList.remove('is-typing', 'is-done', 'is-sent');
+      shot.classList.remove('is-in'); callouts.forEach(function (c2) { c2.classList.remove('on'); });
+      paths.forEach(function (n) { n.classList.remove('on'); });
+      typed.textContent = ''; if (caret) caret.style.display = '';
+    }
+    function showAll() {
+      frame.classList.add('is-on'); prompt.classList.add('is-chat'); chat.classList.add('is-done');
+      typed.textContent = full; if (caret) caret.style.display = 'none'; shot.classList.add('is-in');
+      callouts.forEach(function (c2) { c2.classList.add('on'); }); paths.forEach(function (n) { n.classList.add('on'); });
+    }
+    function play() {
+      reset(); layout();
+      if (reduce) { showAll(); return; }
+      later(function () { frame.classList.add('is-on'); }, 150);                         /* 1. the window appears */
+      later(function () { prompt.classList.add('is-chat'); }, 900);                      /* 2. the user icon and the chat box */
+      later(function () {                                                                /* 3. the request is typed */
+        chat.classList.add('is-typing');
+        var i = 0; (function step() { typed.textContent = full.slice(0, ++i); if (i < full.length) timers.push(setTimeout(step, 15)); })();
+      }, 1500);
+      var typedEnd = 1500 + full.length * 15 + 250;
+      later(function () { chat.classList.remove('is-typing'); chat.classList.add('is-done', 'is-sent'); if (caret) caret.style.display = 'none'; }, typedEnd);   /* send */
+      later(function () { shot.classList.add('is-in'); }, typedEnd + 450);               /* 4. the diagram appears */
+      callouts.forEach(function (c2, i) { later(function () { showCallout(i); }, typedEnd + 1700 + i * 260); });   /* 5. the anatomy, box by box */
+    }
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 120); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    var again = $('#hero-replay'); if (again) again.addEventListener('click', play);
+    play();
   })();
 
   /* ---------- try it ---------- */
