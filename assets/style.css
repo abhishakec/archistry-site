@@ -777,3 +777,6 @@
   :root[data-theme="dark"] .cta .btn.btn--star { --_bg: #ffe9a8; --_ink: #4d3800; --_bd: #ffe9a8; }
   .cta .cta__star a.btn--star, :root[data-theme="dark"] .cta .cta__star a.btn--star { color: var(--_ink); text-decoration: none; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cta .cta__star a.btn--star { color: var(--_ink); text-decoration: none; } }
+
+  .cta__star { grid-template-columns: minmax(0, 1fr) auto; padding: 14px 14px 14px 18px; }
+  @media (max-width: 640px) { .cta__star { grid-template-columns: minmax(0, 1fr); } }
