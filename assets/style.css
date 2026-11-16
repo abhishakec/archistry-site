@@ -71,10 +71,10 @@
     --peach-soft: #4a3330; --mint: #1f3a35; --code-bg: #0a0818; --bar: #1d1a3b;
       --code-ink: #ece8ff; --code-dim: #9b94c9; --code-line: rgb(255 255 255 / .1); --code-prompt: #ffa984;
       --sel-bg: #3a3380; --sel-ink: #f1eeff; --sel-bd: #5b4fc0;
-      --pa-lav: #3b2f78; --pa-blue: #263d78; --pa-mint: #1f4a42; --pa-peach: #5a3d2f; --pa-yellow: #5a4d22; --pa-green: #2d4d2a;
-      --pa-lav-ink: #d9ceff; --pa-blue-ink: #c3d6ff; --pa-mint-ink: #bdeedd; --pa-peach-ink: #ffd5bd; --pa-yellow-ink: #ffe9a8; --pa-green-ink: #cdeec3;
+      --pa-lav: #c9bbff; --pa-blue: #acc9ff; --pa-mint: #93e5c7; --pa-peach: #ffc19e; --pa-yellow: #ffe28f; --pa-green: #b9eca3;
+      --pa-lav-ink: #2b1f66; --pa-blue-ink: #12305f; --pa-mint-ink: #0a4836; --pa-peach-ink: #6a2c0c; --pa-yellow-ink: #5a4000; --pa-green-ink: #1f4a12;
     --shadow-sm: 0 1px 2px rgb(0 0 0 / .4); --shadow-md: 0 12px 28px rgb(0 0 0 / .45); --shadow-lg: 0 28px 60px rgb(0 0 0 / .55);
-    --st-discover: #3b2f78; --st-architect: #263d78; --st-design: #1f4a42; --st-agentforce: #3a3380; --st-build: #5a3d2f; --st-test: #5a4d22; --st-release: #2d4d2a;
+    --st-discover: #c9bbff; --st-architect: #acc9ff; --st-design: #93e5c7; --st-agentforce: #c4b8ff; --st-build: #ffc19e; --st-test: #ffe28f; --st-release: #b9eca3;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -85,10 +85,10 @@
       --peach-soft: #4a3330; --mint: #1f3a35; --code-bg: #0a0818; --bar: #1d1a3b;
       --code-ink: #ece8ff; --code-dim: #9b94c9; --code-line: rgb(255 255 255 / .1); --code-prompt: #ffa984;
       --sel-bg: #3a3380; --sel-ink: #f1eeff; --sel-bd: #5b4fc0;
-      --pa-lav: #3b2f78; --pa-blue: #263d78; --pa-mint: #1f4a42; --pa-peach: #5a3d2f; --pa-yellow: #5a4d22; --pa-green: #2d4d2a;
-      --pa-lav-ink: #d9ceff; --pa-blue-ink: #c3d6ff; --pa-mint-ink: #bdeedd; --pa-peach-ink: #ffd5bd; --pa-yellow-ink: #ffe9a8; --pa-green-ink: #cdeec3;
+      --pa-lav: #c9bbff; --pa-blue: #acc9ff; --pa-mint: #93e5c7; --pa-peach: #ffc19e; --pa-yellow: #ffe28f; --pa-green: #b9eca3;
+      --pa-lav-ink: #2b1f66; --pa-blue-ink: #12305f; --pa-mint-ink: #0a4836; --pa-peach-ink: #6a2c0c; --pa-yellow-ink: #5a4000; --pa-green-ink: #1f4a12;
       --shadow-sm: 0 1px 2px rgb(0 0 0 / .4); --shadow-md: 0 12px 28px rgb(0 0 0 / .45); --shadow-lg: 0 28px 60px rgb(0 0 0 / .55);
-      --st-discover: #3b2f78; --st-architect: #263d78; --st-design: #1f4a42; --st-agentforce: #3a3380; --st-build: #5a3d2f; --st-test: #5a4d22; --st-release: #2d4d2a;
+      --st-discover: #c9bbff; --st-architect: #acc9ff; --st-design: #93e5c7; --st-agentforce: #c4b8ff; --st-build: #ffc19e; --st-test: #ffe28f; --st-release: #b9eca3;
     }
   }
 }
@@ -781,3 +781,12 @@
   .cta__star { grid-template-columns: minmax(0, 1fr) auto; padding: 14px 14px 14px 18px; }
   @media (max-width: 640px) { .cta__star { grid-template-columns: minmax(0, 1fr); } }
   .arrows .halo { display: none; }
+
+  /* dark: brighter pastels */
+  :root[data-theme="dark"] .what__tag { background: var(--pc); color: var(--pi); }
+  :root[data-theme="dark"] .what .ico { box-shadow: 0 6px 18px -8px var(--pc); }
+  :root[data-theme="dark"] .sec__head .eyebrow i { box-shadow: 0 0 0 3px rgb(0 0 0 / .12); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .what__tag { background: var(--pc); color: var(--pi); } :root:not([data-theme="light"]) .what .ico { box-shadow: 0 6px 18px -8px var(--pc); } }
+
+  :root[data-theme="dark"] #d-stage { color: #1e1b3a; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #d-stage { color: #1e1b3a; } }
