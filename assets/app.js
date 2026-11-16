@@ -1,0 +1,305 @@
+/* Archistry site behaviour. Plain JS, no dependencies. Reads window.ARCHISTRY (site/data.js, generated).
+   Respects prefers-reduced-motion: everything shows at once, nothing types or wipes. */
+(function () {
+  'use strict';
+  var D = window.ARCHISTRY || { stages: [], types: [], engines: 11 };
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var byName = {}; D.types.forEach(function (t) { byName[t.name] = t; });
+  var label = function (n) {
+    var s = n.replace(/-/g, ' '); s = s.charAt(0).toUpperCase() + s.slice(1);
+    return s.replace(/\boauth\b/i, 'OAuth').replace(/\braci\b/i, 'RACI').replace(/\bdevops\b/i, 'DevOps').replace(/\bdata cloud\b/i, 'Data Cloud').replace(/\bflow logic\b/i, 'Flow logic');
+  };
+  var stageVar = function (s) { return 'var(--st-' + s.toLowerCase() + ')'; };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); };
+
+  /* typing helper: cancels the previous run when called again */
+  function typer(el, done) {
+    var token = 0;
+    return function (text, speed) {
+      var my = ++token;
+      if (reduce) { el.textContent = text; if (done) done(); return; }
+      el.textContent = '';
+      var i = 0;
+      (function step() {
+        if (my !== token) return;
+        el.textContent = text.slice(0, ++i);
+        if (i < text.length) setTimeout(step, speed || 16); else if (done) done();
+      })();
+    };
+  }
+  function wipe(el) { // clip-path reveal, restartable
+    if (!el) return;
+    el.classList.remove('is-in');
+    if (reduce) return;
+    void el.offsetWidth;
+    requestAnimationFrame(function () { el.classList.add('is-in'); });
+  }
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement;
+  var themeBtn = $('#theme');
+  if (themeBtn) themeBtn.addEventListener('click', function () {
+    var cur = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('archistry-theme', next); } catch (e) { /* storage can be blocked */ }
+  });
+
+  /* ---------- nav ---------- */
+  var menuBtn = $('.menu-btn'), links = $('#nav-links');
+  function closeMenu() { if (links) links.dataset.open = 'false'; if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false'); }
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function () {
+      var open = links.dataset.open === 'true';
+      links.dataset.open = open ? 'false' : 'true';
+      menuBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+    links.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  }
+  if ('IntersectionObserver' in window) {
+    var navLinks = $$('.nav__links a[href^="#"]:not(.btn)');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        navLinks.forEach(function (a) {
+          var on = a.getAttribute('href') === '#' + en.target.id || (en.target.id === 'metadata' && a.getAttribute('href') === '#gallery');
+          if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    $$('main > section[id]').forEach(function (s) { io.observe(s); });
+  }
+
+  /* ---------- copy buttons ---------- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-copy-from]');
+    if (!b) return;
+    var src = $(b.getAttribute('data-copy-from'));
+    var text = src ? (src.dataset.plain || src.textContent) : '';
+    var ok = function () {
+      var span = $('span', b), old = span.textContent;
+      b.dataset.done = 'true'; span.textContent = 'Copied';
+      setTimeout(function () { b.dataset.done = 'false'; span.textContent = old; }, 1600);
+    };
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, fallback);
+    else fallback();
+    function fallback() {
+      var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); ok(); } catch (err) { /* nothing else to try */ }
+      ta.remove();
+    }
+  });
+
+  /* ---------- hero: the prompt types, then the diagram wipes in ---------- */
+  (function hero() {
+    var el = $('#hero-typed'), shot = $('#hero-shot');
+    if (!el) return;
+    var full = el.textContent;
+    var caret = el.parentNode.querySelector('.caret');
+    var type = typer(el, function () { wipe(shot); if (caret) setTimeout(function () { caret.style.display = 'none'; }, 1200); });
+    if (reduce) { shot.classList.add('is-in'); return; }
+    setTimeout(function () { type(full, 17); }, 450);
+  })();
+
+  /* ---------- try it ---------- */
+  (function tryIt() {
+    var list = $('#asks'); if (!list) return;
+    var names = ['solution-architecture', 'data-model', 'agent-interaction-map', 'sequence', 'business-process', 'cutover-plan'].filter(function (n) { return byName[n]; });
+    var text = $('#try-text'), sr = $('#try-sr'), img = $('#try-img'), shot = $('#try-shot'), cmd = $('#try-cmd'), files = $('#try-files');
+    var touched = false;
+    var type = typer(text, function () { wipe(shot); });
+    list.innerHTML = names.map(function (n, i) {
+      return '<button class="ask" type="button" role="radio" aria-checked="false" tabindex="-1" data-n="' + n + '"><span class="ask__n">' + (i + 1) + '</span>' + esc(label(n)) + '</button>';
+    }).join('');
+    var buttons = $$('.ask', list);
+    function pick(n, animate) {
+      var t = byName[n];
+      buttons.forEach(function (b) { var on = b.dataset.n === n; b.setAttribute('aria-checked', on); b.tabIndex = on ? 0 : -1; });
+      sr.textContent = t.ask;
+      img.width = t.w; img.height = t.h; img.srcset = 'img/sm/' + n + '.png 800w, previews/' + n + '.png 1600w'; img.src = 'previews/' + n + '.png';
+      img.alt = label(n) + ' diagram. ' + t.question;
+      shot.href = 'examples/' + n + '.html';
+      shot.setAttribute('aria-label', 'Open the ' + label(n).toLowerCase() + ' diagram as an interactive page');
+      cmd.innerHTML = '<span class="p">$</span> archistry build ' + n + '.json --format drawio,html,png\n<span class="c">  wrote ' + n + '.drawio, ' + n + '.html, ' + n + '.png</span>';
+      cmd.dataset.plain = 'archistry build ' + n + '.json --format drawio,html,png';
+      files.innerHTML = ['drawio', 'html', 'png'].map(function (x) { return '<span class="pill">' + n + '.' + x + '</span>'; }).join('');
+      $('#try-open').href = 'examples/' + n + '.html';
+      $('#try-spec').href = 'examples/' + n + '.json';
+      if (animate) { shot.classList.remove('is-in'); type(t.ask, 11); } else { text.textContent = t.ask; shot.classList.add('is-in'); }
+    }
+    list.addEventListener('click', function (e) { var b = e.target.closest('.ask'); if (b) { touched = true; pick(b.dataset.n, true); } });
+    list.addEventListener('keydown', function (e) {
+      var i = buttons.findIndex(function (b) { return b === document.activeElement; });
+      if (i < 0) return;
+      var d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!d) return;
+      e.preventDefault();
+      var nb = buttons[(i + d + buttons.length) % buttons.length];
+      touched = true; nb.focus(); pick(nb.dataset.n, true);
+    });
+    pick(names[0], false);
+    if ('IntersectionObserver' in window && !reduce) {
+      var seen = new IntersectionObserver(function (en, o) {
+        if (en[0].isIntersecting) { o.disconnect(); if (!touched) pick(names[0], true); }
+      }, { threshold: 0.45 });
+      seen.observe($('#try'));
+    }
+  })();
+
+  /* ---------- explorer ---------- */
+  (function explorer() {
+    var stagesEl = $('#stages'); if (!stagesEl) return;
+    var typesEl = $('#types'), q = $('#q');
+    var st = { stage: 'Architect', name: 'solution-architecture', query: '', live: false };
+    var counts = {}; D.types.forEach(function (t) { counts[t.stage] = (counts[t.stage] || 0) + 1; });
+
+    stagesEl.innerHTML = D.stages.map(function (s) {
+      return '<button class="tab" type="button" role="tab" data-s="' + s + '" aria-selected="false" tabindex="-1">' + s + '<small>' + counts[s] + '</small></button>';
+    }).join('');
+
+    function visible() {
+      var qq = st.query.trim().toLowerCase();
+      if (qq) return D.types.filter(function (t) { return (t.name + ' ' + t.question + ' ' + t.engine + ' ' + (t.aliases || []).join(' ')).toLowerCase().indexOf(qq) > -1; });
+      return D.types.filter(function (t) { return t.stage === st.stage; });
+    }
+    function renderTabs() {
+      $$('.tab', stagesEl).forEach(function (b) {
+        var on = !st.query && b.dataset.s === st.stage;
+        b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
+      });
+    }
+    function renderList() {
+      var items = visible();
+      if (!items.length) { typesEl.innerHTML = '<p class="muted" style="padding:10px 12px">No type matches. Try ERD, OAuth or roadmap.</p>'; return; }
+      if (!items.some(function (t) { return t.name === st.name; })) st.name = items[0].name;
+      typesEl.innerHTML = items.map(function (t) {
+        var on = t.name === st.name;
+        return '<button class="type" type="button" role="option" aria-selected="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-n="' + t.name + '" style="--st:' + stageVar(t.stage) + '"><span class="type__dot"></span>' + esc(label(t.name)) + '</button>';
+      }).join('');
+    }
+    function renderDetail() {
+      var t = byName[st.name]; if (!t) return;
+      $('#d-name').textContent = label(t.name);
+      var pill = $('#d-stage'); pill.textContent = t.stage; pill.style.background = stageVar(t.stage);
+      $('#d-q').textContent = t.question;
+      $('#d-ask').textContent = 'Ask: “' + t.ask + '”';
+      $('#d-drawio').href = 'examples/' + t.name + '.drawio';
+      $('#d-spec').href = 'examples/' + t.name + '.json';
+      var view = $('#d-view'), btn = $('#d-live');
+      if (st.live) {
+        view.innerHTML = '<iframe class="live" title="Interactive ' + esc(label(t.name)) + ' diagram" src="examples/' + t.name + '.html"></iframe>';
+        btn.firstChild.textContent = 'Back to the picture ';
+      } else {
+        view.innerHTML = '<div class="shot shot--detail"><img id="d-img" src="previews/' + t.name + '.png" srcset="img/sm/' + t.name + '.png 800w, previews/' + t.name + '.png 1600w" sizes="(max-width: 900px) 100vw, 780px" decoding="async" width="' + t.w + '" height="' + t.h + '" alt="' + esc(label(t.name)) + ' diagram. ' + esc(t.question) + '"></div>';
+        btn.firstChild.textContent = 'Open it live ';
+      }
+    }
+    function select(name, focus) {
+      st.name = name; st.live = false;
+      var t = byName[name]; if (!st.query) st.stage = t.stage;
+      renderTabs(); renderList(); renderDetail();
+      if (focus) { var b = $('.type[data-n="' + name + '"]', typesEl); if (b) b.focus(); }
+    }
+    stagesEl.addEventListener('click', function (e) {
+      var b = e.target.closest('.tab'); if (!b) return;
+      st.query = ''; q.value = ''; st.stage = b.dataset.s;
+      var first = D.types.filter(function (t) { return t.stage === st.stage; })[0];
+      select(first.name, false);
+    });
+    stagesEl.addEventListener('keydown', function (e) {
+      var tabs = $$('.tab', stagesEl), i = tabs.indexOf(document.activeElement);
+      var d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (i < 0 || !d) return;
+      e.preventDefault(); var nb = tabs[(i + d + tabs.length) % tabs.length]; nb.focus(); nb.click(); nb.focus();
+    });
+    typesEl.addEventListener('click', function (e) { var b = e.target.closest('.type'); if (b) select(b.dataset.n, false); });
+    typesEl.addEventListener('keydown', function (e) {
+      var items = $$('.type', typesEl), i = items.indexOf(document.activeElement);
+      var d = { ArrowDown: 1, ArrowUp: -1 }[e.key]; if (i < 0 || !d) return;
+      e.preventDefault(); select(items[(i + d + items.length) % items.length].dataset.n, true);
+    });
+    q.addEventListener('input', function () { st.query = q.value; renderTabs(); renderList(); st.live = false; renderDetail(); });
+    $('#d-live').addEventListener('click', function () { st.live = !st.live; renderDetail(); });
+    renderTabs(); renderList(); renderDetail();
+    $$('.tab', stagesEl).forEach(function (b) { if (b.dataset.s === st.stage) b.setAttribute('aria-selected', 'true'); });
+  })();
+
+  /* ---------- the editor iframe loads when it nears the screen ---------- */
+  (function lazyFrame() {
+    var f = $('#edit-frame'); if (!f) return;
+    var load = function () { if (!f.src && f.dataset.src) f.src = f.dataset.src; };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en, o) { if (en[0].isIntersecting) { load(); o.disconnect(); } }, { rootMargin: '600px' }).observe(f);
+    } else load();
+  })();
+
+  /* ---------- export command builder ---------- */
+  (function builder() {
+    var b = $('#builder'); if (!b) return;
+    var s = { format: 'png', theme: 'light', scale: '2' };
+    var cmd = $('#export-cmd'), tr = $('#transparent');
+    function render() {
+      var p = ['archistry export diagram.drawio'];
+      if (s.format === 'all') p.push('--format png,jpg,svg'); else p.push('-o diagram.' + s.format);
+      if (s.scale !== '2' && s.format !== 'svg') p.push('--scale ' + s.scale);
+      if (s.theme === 'dark') p.push('--theme dark');
+      var canTransparent = s.format === 'png' || s.format === 'svg' || s.format === 'all';
+      tr.disabled = !canTransparent;
+      if (!canTransparent) tr.checked = false;
+      if (tr.checked) p.push('--transparent');
+      var plain = p.join(' ');
+      var shot = $('#export-shot'), pic = $('#export-img');
+      var useT = tr.checked && canTransparent;
+      pic.src = useT ? 'assets/export-transparent.png' : (s.theme === 'dark' ? 'assets/export-dark.png' : 'assets/export-light.png');
+      shot.classList.toggle('checker', useT);
+      shot.style.background = useT ? '' : (s.theme === 'dark' ? '#0f1220' : '#fff');
+      $('#export-name').textContent = s.format === 'all' ? 'diagram.png · diagram.jpg · diagram.svg' : 'diagram.' + s.format + (s.scale !== '2' && s.format !== 'svg' ? ' · ' + s.scale + '×' : '');
+      cmd.dataset.plain = plain;
+      cmd.innerHTML = '<span class="p">$</span> ' + esc(plain).replace(/(--[a-z-]+|-o)/g, '<span class="c">$1</span>');
+    }
+    $$('[data-ctl]', b).forEach(function (g) {
+      g.addEventListener('click', function (e) {
+        var btn = e.target.closest('.tab'); if (!btn) return;
+        s[g.dataset.ctl] = btn.dataset.v;
+        $$('.tab', g).forEach(function (x) { x.setAttribute('aria-checked', x === btn); });
+        render();
+      });
+    });
+    tr.addEventListener('change', render);
+    render();
+  })();
+
+  /* ---------- install tabs ---------- */
+  (function install() {
+    var tabs = $('#agents'); if (!tabs) return;
+    var clone = 'git clone https://github.com/abhishakec/archistry.git';
+    var agents = [
+      { id: 'Claude Code', note: 'Put the folder in ~/.claude/skills for all projects, or in .claude/skills inside one project. It triggers on diagram requests.', label: 'terminal', cmd: clone + ' ~/.claude/skills/archistry\nnode ~/.claude/skills/archistry/scripts/archistry.mjs doctor' },
+      { id: 'Claude desktop', note: 'Clone the folder, then add it as a skill. It triggers the same way.', label: 'terminal', cmd: clone + '\nnode archistry/scripts/archistry.mjs doctor' },
+      { id: 'GitHub Copilot', note: 'Clone it into your repository and add one line to the Copilot instructions.', label: 'terminal', cmd: clone + ' archistry\necho "For any Salesforce diagram request, follow archistry/SKILL.md." >> .github/copilot-instructions.md' },
+      { id: 'Cursor', note: 'Clone it and add a rule that points at SKILL.md.', label: 'terminal', cmd: clone + ' archistry\n# Cursor rule: "For any Salesforce diagram request, follow archistry/SKILL.md."' },
+      { id: 'Gemini CLI, Codex', note: 'Point the agent at SKILL.md. Any agent that can read files and run node can use it.', label: 'terminal', cmd: clone + ' archistry\nnode archistry/scripts/archistry.mjs doctor' }
+    ];
+    tabs.innerHTML = agents.map(function (a, i) { return '<button class="tab" type="button" role="tab" id="ag' + i + '" aria-selected="' + (i === 0) + '" aria-controls="agent-panel" tabindex="' + (i === 0 ? 0 : -1) + '">' + esc(a.id) + '</button>'; }).join('');
+    var panel = $('#agent-panel');
+    function show(i) {
+      var a = agents[i];
+      $$('.tab', tabs).forEach(function (b, j) { b.setAttribute('aria-selected', j === i); b.tabIndex = j === i ? 0 : -1; });
+      panel.setAttribute('aria-labelledby', 'ag' + i);
+      $('#agent-note').textContent = a.note; $('#agent-label').textContent = a.label;
+      var c = $('#agent-cmd'); c.dataset.plain = a.cmd;
+      c.innerHTML = a.cmd.split('\n').map(function (l) { return l.charAt(0) === '#' ? '<span class="c">' + esc(l) + '</span>' : '<span class="p">$</span> ' + esc(l); }).join('\n');
+    }
+    tabs.addEventListener('click', function (e) { var b = e.target.closest('.tab'); if (b) show($$('.tab', tabs).indexOf(b)); });
+    tabs.addEventListener('keydown', function (e) {
+      var all = $$('.tab', tabs), i = all.indexOf(document.activeElement), d = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (i < 0 || !d) return; e.preventDefault(); var n = (i + d + all.length) % all.length; show(n); all[n].focus();
+    });
+    show(0);
+  })();
+
+  var eng = $('[data-engines]'); if (eng && D.engines) eng.textContent = D.engines;
+})();

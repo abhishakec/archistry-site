@@ -1,0 +1,331 @@
+<!doctype html>
+<!--
+  Archistry site. Plan (kind: software, a developer tool / agent skill).
+  Deal: the project's own brand colours (logo lavender #5b47c9, peach keystone), Sora + Inter + JetBrains Mono (OFL), soft radius.
+  Screens: hero · try-it · explorer (40 types) · edit anywhere (live editor) · images (command builder) ·
+  real metadata · how it works · install + FAQ. One section per screen. Moments: the hero prompt types and the
+  diagram wipes in; the try-it result wipes in on every pick. No scroll reveals, no tilt, no invented proof.
+  Everything shown is real Archistry output (examples/ and previews/ are built from the repo by scripts/build-site.mjs).
+-->
+<html lang="en" data-type="software" data-radius="soft" data-motion="on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="page-type" content="software">
+<meta name="site-kind" content="software">
+<title>Archistry: diagram skill for Salesforce architects</title>
+<meta name="description" content="Describe a Salesforce diagram in plain language and get an editable draw.io file and an interactive HTML page. 40 diagram types, from discovery to go-live. Free and MIT-licensed.">
+<meta name="theme-color" content="#f8f6fc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0c1f" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://abhishakec.github.io/archistry-site/">
+<link rel="icon" type="image/svg+xml" href="brand/archistry-mark.svg">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Archistry: diagram skill for Salesforce architects">
+<meta property="og:description" content="40 Salesforce diagram types as editable draw.io and interactive HTML, from a plain-language request.">
+<meta property="og:url" content="https://abhishakec.github.io/archistry-site/">
+<meta property="og:image" content="https://abhishakec.github.io/archistry-site/cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="brand/fonts/sora-latin-800-normal.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="brand/fonts/inter-latin-400-normal.woff" as="font" type="font/woff" crossorigin>
+<script>
+  document.documentElement.classList.add('js');
+  try { var t = localStorage.getItem('archistry-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"Archistry","description":"An AI-agent skill that draws Salesforce diagrams as editable draw.io files and interactive HTML pages.","codeRepository":"https://github.com/abhishakec/archistry","license":"https://opensource.org/licenses/MIT","programmingLanguage":"JavaScript","runtimePlatform":"Node.js 18+"}</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></g></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Archistry, back to top"><img src="brand/archistry-mark.svg" alt="" width="32" height="32">Archistry</a>
+    <button class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><svg aria-hidden="true"><use href="#i-menu"/></svg></button>
+    <nav class="nav__links" id="nav-links" aria-label="Main">
+      <a href="#try">Try it</a>
+      <a href="#gallery">Diagrams</a>
+      <a href="#edit">Editing</a>
+      <a href="#export">Images</a>
+      <a href="#install">Guide</a>
+      <button class="icon-btn" type="button" id="theme" aria-label="Switch between light and dark theme"><svg class="theme-ico-light" aria-hidden="true"><use href="#i-moon"/></svg><svg class="theme-ico-dark" aria-hidden="true"><use href="#i-sun"/></svg></button>
+      <a class="icon-btn" href="https://github.com/abhishakec/archistry" aria-label="Archistry on GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#i-github"/></svg></a>
+      <a class="btn btn--primary btn--sm" href="#install">Install Archistry</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- 1 · Hero -->
+<section class="sec hero" id="top" aria-labelledby="h-hero">
+  <div class="wrap grid">
+    <div class="hero__copy" data-enter>
+      <span class="eyebrow"><i></i>Agent skill for Salesforce projects</span>
+      <h1 id="h-hero">Diagram skill for Salesforce architects</h1>
+      <p class="lede">Describe a diagram in plain language. Archistry draws it as an editable draw.io file and an interactive HTML page: <b>40 types</b>, from discovery to go-live.</p>
+      <div class="row">
+        <a class="btn btn--primary" href="#install">Install Archistry <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn" href="#gallery">Browse 40 diagrams</a>
+      </div>
+      <p class="fine">Free, MIT-licensed, and it runs on your machine. Works in Claude Code, Copilot, Cursor, Gemini CLI and Codex.</p>
+    </div>
+    <div class="hero__vis" data-enter>
+      <div class="frame">
+        <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>agent · archistry skill</span></div>
+        <div class="prompt">
+          <span class="prompt__who" aria-hidden="true">You</span>
+          <p class="prompt__text"><span class="sr">Draw the solution architecture for order management: Commerce Cloud, Sales Cloud, MuleSoft to SAP, Data Cloud and an Agentforce agent.</span><span id="hero-typed" aria-hidden="true">Draw the solution architecture for order management: Commerce Cloud, Sales Cloud, MuleSoft to SAP, Data Cloud and an Agentforce agent.</span><span class="caret" aria-hidden="true"></span></p>
+        </div>
+        <div class="frame__body">
+          <a class="shot reveal-img" id="hero-shot" href="examples/solution-architecture.html" aria-label="Open this diagram as an interactive page"><img src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 700px" width="1600" height="567" alt="Solution architecture diagram: customer channels, the Salesforce platform with Commerce, Sales, Service, Agentforce and Data Cloud, and enterprise systems, joined by labelled connectors"></a>
+          <span class="lead" style="left:57%;top:10.5%;height:26%;--i:0"></span><span class="tag" style="left:57%;top:10.5%;--i:0">Salesforce icons</span>
+          <span class="lead" style="left:79.5%;top:10.5%;height:24.5%;--i:1"></span><span class="tag" style="left:79.5%;top:10.5%;--i:1">routed around boxes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Try it -->
+<section class="sec sec--alt" id="try" aria-labelledby="h-try">
+  <div class="wrap grid">
+    <div class="stack" style="grid-column: span 4; gap: 22px">
+      <div class="sec__head" style="margin:0">
+        <h2 id="h-try">Plain requests, finished diagrams</h2>
+        <p class="lede">Pick a request. Each result is real Archistry output, unedited.</p>
+      </div>
+      <div class="ask-list" id="asks" role="radiogroup" aria-label="Example requests"></div>
+    </div>
+    <div class="result" style="grid-column: span 8" aria-live="polite">
+      <div class="frame">
+        <div class="bubble"><span class="sr" id="try-sr"></span><span id="try-text" aria-hidden="true"></span><span class="caret" aria-hidden="true"></span></div>
+        <div class="frame__body"><a class="shot reveal-img" id="try-shot" href="#"><img id="try-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></a></div>
+      </div>
+      <div class="term">
+        <div class="term__bar"><span>the agent runs</span><button class="copy" type="button" data-copy-from="#try-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+        <pre><code id="try-cmd"></code></pre>
+      </div>
+      <div class="row">
+        <div class="files" id="try-files"></div>
+        <a class="btn btn--sm" id="try-open" href="#">Open the interactive page <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--sm btn--ghost" id="try-spec" href="#">Read the spec</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Explorer -->
+<section class="sec" id="gallery" aria-labelledby="h-gallery">
+  <div class="wrap">
+    <div class="sec__head sec__head--row">
+      <h2 id="h-gallery">40 diagram types, by project stage</h2>
+      <p class="lede">Search or pick a stage. Open any diagram live, then edit it.</p>
+    </div>
+    <div class="xbar">
+      <div class="field"><svg aria-hidden="true"><use href="#i-search"/></svg><label class="sr" for="q">Search diagram types</label><input id="q" type="search" placeholder="Search, for example ERD or OAuth" autocomplete="off"></div>
+      <div class="tabs" id="stages" role="tablist" aria-label="Project stage"></div>
+    </div>
+    <div class="grid" style="align-items: start">
+      <div class="stack" style="grid-column: span 4; gap: 16px">
+        <div class="type-list" id="types" role="listbox" aria-label="Diagram types"></div>
+        <noscript><p class="muted">Turn on JavaScript to browse the types, or see the <a href="https://github.com/abhishakec/archistry#-diagram-types">full gallery on GitHub</a>.</p></noscript>
+      </div>
+      <div class="detail" style="grid-column: span 8">
+        <div class="detail__head"><h3 id="d-name"></h3><span class="pill" id="d-stage"></span></div>
+        <p class="muted" id="d-q"></p>
+        <div class="frame">
+          <div class="frame__body" id="d-view"><div class="shot shot--detail"><img id="d-img" src="previews/solution-architecture.png" srcset="img/sm/solution-architecture.png 800w, previews/solution-architecture.png 1600w" sizes="(max-width: 900px) 100vw, 780px" width="1600" height="567" alt="" loading="lazy" decoding="async"></div></div>
+        </div>
+        <div class="row">
+          <button class="btn btn--primary btn--sm" type="button" id="d-live">Open it live <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <a class="btn btn--sm" id="d-drawio" href="#" download>Download the draw.io file</a>
+          <a class="btn btn--sm btn--ghost" id="d-spec" href="#">Read the spec</a>
+        </div>
+        <p class="fine" id="d-ask"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Edit anywhere -->
+<section class="sec sec--alt" id="edit" aria-labelledby="h-edit">
+  <div class="wrap grid">
+    <div class="stack" style="grid-column: span 5; gap: 22px">
+      <div class="sec__head" style="margin:0">
+        <h2 id="h-edit">Edit in draw.io or in the browser</h2>
+        <p class="lede">Both files come from the same model and convert into each other without loss.</p>
+      </div>
+      <div class="stack">
+        <div class="card fmt">
+          <img src="assets/icons/xml.svg" alt="" width="36" height="41" loading="lazy">
+          <h3>Open the .drawio in draw.io</h3>
+          <ul><li>draw.io desktop, app.diagrams.net or VS Code</li><li>Uncompressed XML, so it diffs cleanly in git</li><li>Connectors stay attached when you drag boxes</li></ul>
+        </div>
+        <div class="card fmt">
+          <img src="assets/icons/html.svg" alt="" width="36" height="41" loading="lazy">
+          <h3>Edit the .html in any browser</h3>
+          <ul><li>One offline file, nothing to install</li><li>Move, resize, retext, recolour, connect, undo</li><li>Export PNG, JPG or SVG from the page</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="stack" style="grid-column: span 7; gap: 18px">
+      <div class="frame">
+        <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>system-landscape.html · press E to edit</span></div>
+        <iframe class="live" id="edit-frame" title="Interactive example: system landscape in the Archistry viewer" data-src="examples/system-landscape.html" loading="lazy" style="height: min(58vh, 520px)"></iframe>
+      </div>
+      <div class="keys" aria-label="Keyboard shortcuts in the HTML page">
+        <span><kbd>E</kbd> edit</span><span><kbd>/</kbd> find</span><span><kbd>L</kbd> animate</span><span><kbd>T</kbd> theme</span><span><kbd>P</kbd> present</span><span><kbd>0</kbd> fit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Images -->
+<section class="sec" id="export" aria-labelledby="h-export">
+  <div class="wrap grid">
+    <div class="stack" style="grid-column: span 5; gap: 24px">
+      <div class="sec__head" style="margin:0">
+        <h2 id="h-export">Images for your documents</h2>
+        <p class="lede">Export PNG, JPG or SVG for Word, Confluence, Google Docs and slides. Set the options and copy the command.</p>
+      </div>
+      <div class="builder" id="builder">
+        <div class="ctl"><b id="l-fmt">Format</b><div class="tabs" role="radiogroup" aria-labelledby="l-fmt" data-ctl="format">
+          <button class="tab" type="button" role="radio" aria-checked="true" data-v="png">PNG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="jpg">JPG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="svg">SVG</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="all">All three</button></div></div>
+        <div class="ctl"><b id="l-theme">Theme</b><div class="tabs" role="radiogroup" aria-labelledby="l-theme" data-ctl="theme">
+          <button class="tab" type="button" role="radio" aria-checked="true" data-v="light">Light</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="dark">Dark</button></div></div>
+        <div class="ctl"><b id="l-scale">Resolution</b><div class="tabs" role="radiogroup" aria-labelledby="l-scale" data-ctl="scale">
+          <button class="tab" type="button" role="radio" aria-checked="false" data-v="1">1×</button><button class="tab" type="button" role="radio" aria-checked="true" data-v="2">2×</button><button class="tab" type="button" role="radio" aria-checked="false" data-v="4">4× print</button></div></div>
+        <label class="switch"><input type="checkbox" id="transparent"> Transparent background</label>
+      </div>
+    </div>
+    <div class="stack" style="grid-column: span 7; gap: 18px">
+      <div class="frame">
+        <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="export-name">diagram.png</span></div>
+        <div class="shot" id="export-shot"><img id="export-img" loading="lazy" decoding="async" src="assets/export-light.png" width="1600" height="567" alt="The same solution architecture diagram exported as an image" style="max-height: 300px; object-fit: contain"></div>
+      </div>
+      <div class="term">
+        <div class="term__bar"><span>archistry export</span><button class="copy" type="button" data-copy-from="#export-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+        <pre><code id="export-cmd"></code></pre>
+      </div>
+      <div class="use" aria-label="Where the images go">
+        <span class="pill">Word</span><span class="pill">Confluence</span><span class="pill">Google Docs</span><span class="pill">Slides</span><span class="pill">README files</span>
+      </div>
+      <p class="fine">SVG needs only Node. PNG and JPG use the Chrome, Edge or Chromium already on your machine, headless. Without Node, use the Export menu in the HTML page. For PowerPoint, insert the SVG and choose Convert to Shape.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Real metadata -->
+<section class="sec sec--alt" id="metadata" aria-labelledby="h-meta">
+  <div class="wrap">
+    <div class="sec__head">
+      <h2 id="h-meta">Start from real metadata</h2>
+      <p class="lede">Point Archistry at your project and it writes the first draft of the spec.</p>
+    </div>
+    <div class="grid" style="align-items: stretch">
+      <article class="card" style="grid-column: span 4">
+        <a class="shot" href="examples/data-model.html"><img src="previews/data-model.png" srcset="img/sm/data-model.png 800w, previews/data-model.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Entity relationship diagram with Salesforce crow's foot notation" loading="lazy"></a>
+        <h3>Draw an ERD from an SFDX project</h3>
+        <p>Reads objects, key fields, lookups and master-detail links from your metadata.</p>
+        <div class="term"><div class="term__bar"><span>erd-from-sfdx</span><button class="copy" type="button" data-copy-from="#m1"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m1">archistry erd-from-sfdx ./ -o erd.json --objects Account,Case</code></pre></div>
+      </article>
+      <article class="card" style="grid-column: span 4">
+        <a class="shot" href="examples/data-cloud-mapping.html"><img src="previews/data-cloud-mapping.png" srcset="img/sm/data-cloud-mapping.png 800w, previews/data-cloud-mapping.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="Field-level mapping from source systems to Data Cloud objects" loading="lazy"></a>
+        <h3>Map Data Cloud fields from a CSV</h3>
+        <p>Turns a DLO to DMO mapping sheet into a field-level diagram.</p>
+        <div class="term"><div class="term__bar"><span>mapping-from-csv</span><button class="copy" type="button" data-copy-from="#m2"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m2">archistry mapping-from-csv mappings.csv -o mapping.json</code></pre></div>
+      </article>
+      <article class="card" style="grid-column: span 4">
+        <a class="shot" href="examples/flow-logic.html"><img src="previews/flow-logic.png" srcset="img/sm/flow-logic.png 800w, previews/flow-logic.png 1600w" sizes="(max-width: 900px) 100vw, 380px" width="1600" height="900" decoding="async" alt="A Salesforce Flow drawn element by element with decisions and fault paths" loading="lazy"></a>
+        <h3>Explain a Flow as a diagram</h3>
+        <p>Reads a flow-meta.xml: decisions, record operations, loops and fault paths.</p>
+        <div class="term"><div class="term__bar"><span>flow-from-metadata</span><button class="copy" type="button" data-copy-from="#m3"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="m3">archistry flow-from-metadata My_Flow.flow-meta.xml -o flow.json</code></pre></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · How it works -->
+<section class="sec" id="how" aria-labelledby="h-how">
+  <div class="wrap">
+    <div class="sec__head sec__head--row">
+      <h2 id="h-how">How a sentence becomes a file</h2>
+      <p class="lede">The agent describes the diagram. The engine lays it out, checks it and writes the files.</p>
+    </div>
+    <div class="frame">
+      <div class="frame__bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span>how-it-works.html · drawn by Archistry</span></div>
+      <a class="shot" href="how-it-works.html"><img src="how-it-works.png" srcset="img/sm/how-it-works.png 1400w, how-it-works.png 3460w" sizes="(max-width: 900px) 100vw, 1200px" width="3460" height="1138" alt="Pipeline: you ask, the agent writes a spec, the engine lays out, applies notation and validates, then writes draw.io, HTML and images" loading="lazy"></a>
+    </div>
+    <div class="grid" style="margin-top: 22px; align-items: stretch">
+      <div class="card" style="grid-column: span 4"><h3>Lay out the boxes</h3><p><b data-engines>11</b> layout engines place every box on a grid and route each connector around the others.</p></div>
+      <div class="card" style="grid-column: span 4"><h3>Check the result</h3><p>Overlaps, lines through boxes, clipped labels and low contrast are tested. A failed check fails the build.</p></div>
+      <div class="card" style="grid-column: span 4"><h3>Write the files</h3><p>The .drawio, the .html and any images you asked for. Each file embeds about 200 Salesforce icons.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Install -->
+<section class="sec sec--alt" id="install" aria-labelledby="h-install">
+  <div class="wrap grid" style="align-items: start">
+    <div class="stack" style="grid-column: span 5; gap: 26px">
+      <div class="sec__head" style="margin:0">
+        <h2 id="h-install">Install and use</h2>
+        <p class="lede">You need Node.js 18 or later. There is nothing to npm install.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><div><h3>Add the skill</h3><p>Clone it into your agent's skills folder.</p></div></li>
+        <li class="step"><div><h3>Describe the diagram</h3><p>Name the type, the systems and who it is for.</p></div></li>
+        <li class="step"><div><h3>Open the result</h3><p>Edit the HTML in your browser or the .drawio in draw.io.</p></div></li>
+      </ol>
+      <a class="btn btn--primary" href="https://github.com/abhishakec/archistry">View Archistry on GitHub <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="stack" style="grid-column: span 7; gap: 18px">
+      <div class="tabs" role="tablist" aria-label="Agent" id="agents"></div>
+      <div id="agent-panel" role="tabpanel" class="stack" tabindex="0" style="gap: 14px">
+        <p class="muted" id="agent-note"></p>
+        <div class="term"><div class="term__bar"><span id="agent-label">terminal</span><button class="copy" type="button" data-copy-from="#agent-cmd"><svg width="14" height="14" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre><code id="agent-cmd"></code></pre></div>
+      </div>
+      <div>
+        <details class="faq"><summary>Does it work without an AI agent?</summary><div>Yes. Run <code>archistry init solution-architecture -o arch.json</code> for a complete starter spec, edit it, then <code>archistry build arch.json --format drawio,html,png</code>.</div></details>
+        <details class="faq"><summary>Does my data leave my machine?</summary><div>No. The build runs in Node on your machine, image export runs in your own headless browser, and the HTML output makes no network requests.</div></details>
+        <details class="faq"><summary>Is it only for Salesforce?</summary><div>It is built and optimised for Salesforce work: the types, notation, icons and examples are all Salesforce. The engine itself is platform-neutral, so it can be adapted for other platforms.</div></details>
+        <details class="faq"><summary>Can I use my company colours?</summary><div>Yes. Put a <code>brand.json</code> beside your spec. Palette and font follow your brand; notation such as crow's feet and BPMN shapes stays standard.</div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap stack" style="gap: 22px">
+    <div class="row" style="justify-content: space-between">
+      <a class="brand" href="#top"><img src="brand/archistry-mark.svg" alt="" width="32" height="32" loading="lazy">Archistry</a>
+      <nav class="foot__links" aria-label="Project">
+        <a href="https://github.com/abhishakec/archistry">GitHub</a>
+        <a href="https://github.com/abhishakec/archistry/releases/latest">Release notes</a>
+        <a href="https://github.com/abhishakec/archistry/issues">Report an issue</a>
+        <a href="https://github.com/abhishakec/archistry/blob/main/SKILL.md">Skill instructions</a>
+        <a href="https://github.com/abhishakec/archistry/blob/main/THIRD-PARTY-NOTICES.md">Third-party notices</a>
+      </nav>
+    </div>
+    <small>Credits: inspired by the Agent Interaction Map and Agent Instruction Diagram method from Elements.cloud, the Salesforce Diagramming Framework and Archify. Icons from the community drawIo-Salesforce library and the SLDS set (CC BY-ND 4.0). Fonts Sora, Inter and JetBrains Mono (SIL OFL 1.1). Page designed with the Taste skill.</small>
+    <small>Salesforce, Agentforce, Data Cloud, MuleSoft, Tableau and Slack are trademarks of Salesforce, Inc. Elements.cloud is a trademark of its owner. Archistry is an unofficial community project, not affiliated with, endorsed by or supported by Salesforce or Elements.cloud. Code and documentation are MIT-licensed.</small>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

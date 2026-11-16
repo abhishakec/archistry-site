@@ -1,0 +1,51 @@
+name: Deploy site to GitHub Pages
+
+# The site reads its diagrams from the skill repo (abhishakec/archistry) at build time, so the
+# skill itself stays free of website files. Rebuilds on every push, weekly (to pick up new
+# examples), and on demand from the Actions tab.
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+      - name: Check out the skill (examples, previews, brand files)
+        uses: actions/checkout@v4
+        with:
+          repository: abhishakec/archistry
+          path: skill
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build the site into _site/
+        run: node scripts/build.mjs --skill skill
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
