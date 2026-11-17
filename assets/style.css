@@ -431,6 +431,9 @@
   .cta .btn:hover { background: rgb(255 255 255 / .12); }
   .cta .btn--primary { --_bg: #ffffff; --_ink: #1e1b3a; --_bd: #ffffff; }
   .cta .btn--primary:hover { background: var(--peach-soft); }
+  .foot__motto { margin-top: clamp(36px, 6vh, 64px); padding-top: clamp(28px, 5vh, 48px); border-top: 1px solid var(--line); max-width: 22ch; font: 700 clamp(1.75rem, 4.2vw, 3.25rem) / 1.12 var(--font-head); letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+  .foot__motto span { color: var(--accent); }
+  .foot__motto + .foot__grid { padding-top: clamp(28px, 4vh, 44px); }
   .foot__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 32px; padding: clamp(36px, 6vh, 64px) 0 28px; }
   .foot__brand { grid-column: 1 / span 5; display: grid; gap: 16px; align-content: start; }
   .foot__brand p { max-width: 40ch; color: var(--ink-2); font-size: .9375rem; }
