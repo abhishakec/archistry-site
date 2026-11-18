@@ -26,24 +26,6 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { links.dataset.open = 'false'; menuBtn.setAttribute('aria-expanded', 'false'); } });
   }
 
-  /* copy button in the closing block */
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('[data-copy-from]'); if (!b) return;
-    var src = document.querySelector(b.getAttribute('data-copy-from'));
-    var text = src ? src.textContent : '';
-    var span = b.querySelector('span'), old = span.textContent;
-    function ok() { b.dataset.done = 'true'; span.textContent = 'Copied'; setTimeout(function () { b.dataset.done = 'false'; span.textContent = old; }, 1600); }
-    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(ok, function () {});
-    else { var ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (err) { /* nothing else to try */ } ta.remove(); }
-  });
-
-  /* star count (shown from 10 stars up), same as the home page */
-  var starEl = document.getElementById('star-n');
-  if (starEl) fetch('https://api.github.com/repos/' + REPO, { headers: { Accept: 'application/vnd.github+json' } })
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) { var n = d && d.stargazers_count; if (n >= 10) { starEl.textContent = n >= 1000 ? (n / 1000).toFixed(1).replace('.0', '') + 'k' : String(n); starEl.hidden = false; } })
-    .catch(function () {});
-
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function fmtDate(iso) {
     var d = new Date(iso);
