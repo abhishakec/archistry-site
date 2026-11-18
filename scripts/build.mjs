@@ -44,8 +44,10 @@ const pngSize = (file) => { const b = fs.readFileSync(file); return { w: b.readU
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out, { recursive: true });
 let files = 0;
-for (const f of ['index.html', '404.html']) { fs.copyFileSync(path.join(here, f), path.join(out, f)); files++; }
+for (const f of ['index.html', 'changelog.html', '404.html']) { fs.copyFileSync(path.join(here, f), path.join(out, f)); files++; }
 files += copyDir(path.join(here, 'assets'), path.join(out, 'assets'));
+// the changelog reads the skill's GitHub releases, baked in here and refreshed live in the browser
+await import('node:child_process').then(({ execFileSync }) => execFileSync(process.execPath, [path.join(here, 'scripts', 'fetch-releases.mjs'), path.join(out, 'releases.json')], { stdio: 'inherit' })); files++;
 files += copyDir(path.join(here, 'img'), path.join(out, 'img'));
 
 // 2. what it shows, read from the skill repo

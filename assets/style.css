@@ -804,3 +804,50 @@
   .what .ico svg.lt path { stroke: var(--pi) !important; }
   .what .ico svg.lt [fill]:not([fill="none"]) { fill: var(--pi); }
   .btn--love .heart, .btn--love:hover .heart { color: #e5384f; }
+
+/* ---------- changelog page ---------- */
+@layer components {
+  .nav__links a[aria-current="page"] { color: var(--ink); }
+  .nav__links a[aria-current="page"]::after { transform: scaleX(1); }
+  .clog { padding: calc(var(--nav-h) + clamp(32px, 7vh, 72px)) 0 clamp(56px, 10vh, 112px); min-height: 100svh; }
+  .clog__head { display: grid; gap: 16px; justify-items: start; max-width: 62ch; padding-bottom: clamp(32px, 6vh, 56px); }
+  .clog__head h1 { font: 800 clamp(2rem, 5vw, 3.5rem) / 1.06 var(--font-head); letter-spacing: -.035em; }
+  .clog__head .lede { color: var(--ink-2); font-size: 1.0625rem; max-width: 52ch; }
+  .rel__status, .rel__empty { color: var(--ink-2); padding: 24px 0; }
+  .rel__empty a, .rel__body a { color: var(--accent); text-underline-offset: 3px; }
+  .rel-list { border-top: 1px solid var(--line); }
+  .rel { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: 20px; padding: clamp(32px, 6vh, 56px) 0; border-bottom: 1px solid var(--line); scroll-margin-top: calc(var(--nav-h) + 12px); }
+  .rel__meta { grid-column: 1 / span 3; display: flex; flex-wrap: wrap; align-content: start; align-items: center; gap: 8px 10px; }
+  @media (min-width: 901px) { .rel__meta { position: sticky; top: calc(var(--nav-h) + 24px); align-self: start; display: grid; justify-items: start; gap: 8px; } }
+  .rel__ver { font: 800 clamp(1.75rem, 3.4vw, 2.5rem) / 1 var(--font-head); letter-spacing: -.035em; text-decoration: none; color: var(--ink); }
+  .rel__ver::before { content: "v"; color: var(--accent); margin-right: 1px; }
+  .rel__ver:hover { color: var(--accent); }
+  .rel__meta time { font-family: var(--font-mono); font-size: .8125rem; letter-spacing: .02em; color: var(--ink-2); }
+  .rel__badge { display: inline-flex; align-items: center; min-height: 26px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 999px; font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+  .rel__badge--latest { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 500; }
+  .rel__main { grid-column: 4 / span 9; min-width: 0; display: grid; gap: 20px; align-content: start; }
+  .rel__main > h2 { font: 700 clamp(1.375rem, 2.6vw, 1.875rem) / 1.2 var(--font-head); letter-spacing: -.025em; text-wrap: balance; }
+  .rel__body { display: grid; gap: 14px; max-width: 70ch; color: var(--ink-2); font-size: 1rem; line-height: 1.65; }
+  .rel__body > * { margin: 0; }
+  .rel__body h1, .rel__body h2, .rel__body h3, .rel__body h4 { margin-top: 14px; font: 700 1.0625rem / 1.3 var(--font-head); letter-spacing: -.01em; color: var(--ink); }
+  .rel__body strong, .rel__body b { color: var(--ink); font-weight: 600; }
+  .rel__body ul, .rel__body ol { display: grid; gap: 8px; padding-left: 1.25em; }
+  .rel__body ul { list-style: disc; } .rel__body ol { list-style: decimal; }
+  .rel__body li::marker { color: var(--accent); }
+  .rel__body code { padding: .12em .4em; border-radius: 6px; background: var(--code-bg); color: var(--code-ink); font-family: var(--font-mono); font-size: .875em; }
+  .rel__body pre { overflow-x: auto; padding: 16px 18px; border-radius: var(--r-md); background: var(--code-bg); border: 1px solid var(--code-line); }
+  .rel__body pre code { padding: 0; background: none; font-size: .8125rem; }
+  .rel__body kbd { padding: .1em .45em; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 6px; font-family: var(--font-mono); font-size: .8125em; color: var(--ink); background: var(--surface); }
+  .rel__body img { border-radius: var(--r-md); }
+  .rel__body hr { border: 0; border-top: 1px solid var(--line); }
+  .rel__body .highlight { display: block; }
+  .rel__gh { display: inline-flex; align-items: center; gap: 8px; justify-self: start; min-height: 44px; font-weight: 600; font-size: .9375rem; color: var(--ink); text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 2px no-repeat; transition: background-size .25s var(--ease), color .15s; }
+  .rel__gh:hover { background-size: 100% 2px; color: var(--accent); }
+  .rel__gh svg { width: 16px; height: 16px; }
+  .foot--slim { padding-top: 0; }
+  @media (max-width: 900px) {
+    .rel { grid-template-columns: minmax(0, 1fr); }
+    .rel__meta, .rel__main { grid-column: 1; }
+    .rel__meta { gap: 6px 12px; }
+  }
+}

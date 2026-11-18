@@ -1,13 +1,14 @@
 name: Deploy site to GitHub Pages
 
 # The site reads its diagrams from the skill repo (abhishakec/archistry) at build time, so the
-# skill itself stays free of website files. Rebuilds on every push, weekly (to pick up new
-# examples), and on demand from the Actions tab.
+# skill itself stays free of website files, and the changelog reads its GitHub releases. Rebuilds on
+# every push, every 6 hours (new examples and releases), and on demand from the Actions tab. The
+# changelog page also asks GitHub for new releases in the browser, so a release shows at once.
 on:
   push:
     branches: [main]
   schedule:
-    - cron: "17 5 * * 1"
+    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
@@ -35,6 +36,8 @@ jobs:
           node-version: 20
       - name: Build the site into _site/
         run: node scripts/build.mjs --skill skill
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
