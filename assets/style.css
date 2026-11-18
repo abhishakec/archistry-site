@@ -844,7 +844,6 @@
   .rel__gh { display: inline-flex; align-items: center; gap: 8px; justify-self: start; min-height: 44px; font-weight: 600; font-size: .9375rem; color: var(--ink); text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 calc(100% - 8px) / 0 2px no-repeat; transition: background-size .25s var(--ease), color .15s; }
   .rel__gh:hover { background-size: 100% 2px; color: var(--accent); }
   .rel__gh svg { width: 16px; height: 16px; }
-  .foot--slim { padding-top: 0; }
   @media (max-width: 900px) {
     .rel { grid-template-columns: minmax(0, 1fr); }
     .rel__meta, .rel__main { grid-column: 1; }
