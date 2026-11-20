@@ -60,7 +60,7 @@ for (const f of ['how-it-works.html', 'how-it-works.png', 'how-it-works.drawio',
 }
 fs.copyFileSync(path.join(skill, '.github', 'cover.png'), path.join(out, 'cover.png')); files++;
 
-// 3. data.js: the 40 types, their asks and picture sizes (a classic script, so the page also opens from file://)
+// 3. data.js: every type, their asks and picture sizes (a classic script, so the page also opens from file://)
 const list = (Array.isArray(TYPES) ? TYPES : Object.values(TYPES)).map((t) => {
   const png = path.join(skill, 'docs', 'previews', t.name + '.png');
   const size = fs.existsSync(png) ? pngSize(png) : { w: 1600, h: 900 };
