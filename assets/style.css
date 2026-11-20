@@ -851,20 +851,19 @@
   }
 }
 
-/* ---------- diagram stage pills: one pastel per stage, count first ---------- */
-@layer components {
-  #stages .tab[data-s="Discover"] { --tb: var(--st-discover); --tk: var(--pa-lav-ink); }
-  #stages .tab[data-s="Architect"] { --tb: var(--st-architect); --tk: var(--pa-blue-ink); }
-  #stages .tab[data-s="Design"] { --tb: var(--st-design); --tk: var(--pa-mint-ink); }
-  #stages .tab[data-s="Agentforce"] { --tb: var(--st-agentforce); --tk: var(--pa-lav-ink); }
-  #stages .tab[data-s="Build"] { --tb: var(--st-build); --tk: var(--pa-peach-ink); }
-  #stages .tab[data-s="Test"] { --tb: var(--st-test); --tk: var(--pa-yellow-ink); }
-  #stages .tab[data-s="Release"] { --tb: var(--st-release); --tk: var(--pa-green-ink); }
-  #stages .tab { background: var(--tb, var(--surface)); color: var(--tk, var(--ink-2)); border: 1.5px solid rgb(255 255 255 / .75); box-shadow: 0 1px 2px rgb(40 30 100 / .06), 0 4px 12px -6px rgb(60 40 140 / .22); }
-  #stages .tab small { margin: 0 8px 0 0; opacity: 1; font-family: var(--font-mono); font-weight: 500; font-size: .8125rem; }
-  #stages .tab:hover { color: var(--tk); border-color: rgb(255 255 255 / .95); transform: translateY(-1px); }
-  #stages .tab:active { transform: scale(.97); }
-  #stages .tab[aria-selected="true"] { background: var(--tb); border-color: var(--tk); color: var(--tk); box-shadow: 0 0 0 2px color-mix(in srgb, var(--tk) 28%, transparent), 0 6px 16px -8px color-mix(in srgb, var(--tk) 45%, transparent); }
-  :root[data-theme="dark"] #stages .tab { border-color: rgb(255 255 255 / .12); }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #stages .tab { border-color: rgb(255 255 255 / .12); } }
-}
+/* ---------- diagram stage pills: one pastel per stage, count first ----------
+ Unlayered on purpose: the pastel pass above is unlayered and would otherwise turn the selected pill lavender. */
+#stages .tab[data-s="Discover"] { --tb: var(--st-discover); --tk: var(--pa-lav-ink); }
+#stages .tab[data-s="Architect"] { --tb: var(--st-architect); --tk: var(--pa-blue-ink); }
+#stages .tab[data-s="Design"] { --tb: var(--st-design); --tk: var(--pa-mint-ink); }
+#stages .tab[data-s="Agentforce"] { --tb: var(--st-agentforce); --tk: var(--pa-lav-ink); }
+#stages .tab[data-s="Build"] { --tb: var(--st-build); --tk: var(--pa-peach-ink); }
+#stages .tab[data-s="Test"] { --tb: var(--st-test); --tk: var(--pa-yellow-ink); }
+#stages .tab[data-s="Release"] { --tb: var(--st-release); --tk: var(--pa-green-ink); }
+#stages .tab { background: var(--tb, var(--surface)); color: var(--tk, var(--ink-2)); border: 1.5px solid rgb(255 255 255 / .75); box-shadow: 0 1px 2px rgb(40 30 100 / .06), 0 4px 12px -6px rgb(60 40 140 / .22); }
+#stages .tab small { margin: 0 8px 0 0; opacity: 1; font-family: var(--font-mono); font-weight: 500; font-size: .8125rem; }
+#stages .tab:hover { color: var(--tk); border-color: rgb(255 255 255 / .95); transform: translateY(-1px); }
+#stages .tab:active { transform: scale(.97); }
+#stages .tab[aria-selected="true"] { background: var(--tb); color: var(--tk); border-color: color-mix(in srgb, var(--tk) 55%, transparent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--tk) 22%, transparent); }
+:root[data-theme="dark"] #stages .tab { border-color: rgb(255 255 255 / .12); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #stages .tab { border-color: rgb(255 255 255 / .12); } }
