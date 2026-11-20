@@ -231,7 +231,7 @@
     var counts = {}; D.types.forEach(function (t) { counts[t.stage] = (counts[t.stage] || 0) + 1; });
 
     stagesEl.innerHTML = D.stages.map(function (s) {
-      return '<button class="tab" type="button" role="tab" data-s="' + s + '" aria-selected="false" tabindex="-1">' + s + '<small>' + counts[s] + '</small></button>';
+      return '<button class="tab" type="button" role="tab" data-s="' + s + '" aria-selected="false" tabindex="-1"><small>' + counts[s] + '</small> ' + s + '</button>';
     }).join('');
 
     function visible() {
