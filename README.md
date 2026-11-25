@@ -2,7 +2,7 @@
 
 The guide and live demo for **[Archistry](https://github.com/abhishakec/archistry)**, the Salesforce diagram skill for AI agents.
 
-**Live site:** https://abhishakec.github.io/archistry-site/
+**Live site:** https://archistry.dev/
 
 This is a separate repository on purpose: installing the skill (`git clone .../archistry`) never downloads the website.
 The site reads the skill's real output (examples, previews, logo) from the skill repo when it builds, so nothing is copied or kept in sync by hand.
