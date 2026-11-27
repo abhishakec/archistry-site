@@ -131,7 +131,7 @@
       <p class="lede">Built for Salesforce architects, business analysts and consultants.</p>
     </div>
     <div class="what-grid">
-      <article class="card what"><span class="what__n" aria-hidden="true">01</span><span class="ico" data-lottie="grid"><svg aria-hidden="true"><use href="#i-grid"/></svg></span><h3>Draw 49 diagram types</h3><p>From stakeholder maps to cutover plans, in the notation Salesforce teams use.</p><span class="what__tag">49 types · 11 layout engines</span></article>
+      <article class="card what"><span class="what__n" aria-hidden="true">01</span><span class="ico" data-lottie="grid"><svg aria-hidden="true"><use href="#i-grid"/></svg></span><h3>Draw 49 diagram types</h3><p>From stakeholder maps to cutover plans, with Salesforce Architects header cards and data-model notation.</p><span class="what__tag">49 types · 11 layout engines</span></article>
       <article class="card what"><span class="what__n" aria-hidden="true">02</span><span class="ico" data-lottie="edit"><svg aria-hidden="true"><use href="#i-pen"/></svg></span><h3>Edit in draw.io or the browser</h3><p>Each diagram is two files that convert into each other without loss.</p><span class="what__tag">.drawio + .html</span></article>
       <article class="card what"><span class="what__n" aria-hidden="true">03</span><span class="ico" data-lottie="image"><svg aria-hidden="true"><use href="#i-image"/></svg></span><h3>Export PNG, JPG and SVG</h3><p>Images for Word, Confluence, Google Docs and slides.</p><span class="what__tag">1× to 4× print</span></article>
       <article class="card what"><span class="what__n" aria-hidden="true">04</span><span class="ico" data-lottie="shield"><svg aria-hidden="true"><use href="#i-shield"/></svg></span><h3>Check every build</h3><p>Overlaps, lines through boxes and clipped labels fail the build.</p><span class="what__tag">Fails on overlap</span></article>
@@ -346,9 +346,10 @@
     </div>
     <div class="grid install-grid">
       <div class="panel" style="grid-column: span 5">
-        <h3 class="panel__t">Three steps</h3>
+        <h3 class="panel__t">Four steps</h3>
         <ol class="steps">
           <li class="step"><div><h3>Add the skill</h3><p>One command installs it into your agent. Update it the same way.</p></div></li>
+          <li class="step"><div><h3>Make it the default</h3><p>Run <code>archistry setup</code> once per project. It adds a short rule to CLAUDE.md, Copilot, AGENTS.md, Gemini, Cursor or Windsurf instructions.</p></div></li>
           <li class="step"><div><h3>Describe the diagram</h3><p>Name the type, the systems and who it is for.</p></div></li>
           <li class="step"><div><h3>Open the result</h3><p>Edit the HTML in your browser or the .drawio in draw.io.</p></div></li>
         </ol>
@@ -369,12 +370,14 @@
       <div class="faq-grid">
         <div>
           <details class="faq"><summary>How should I word a request?</summary><div>Name the diagram type, the systems or objects, and who it is for. Ask for an image if you need one. For example: “Draw the integration architecture for order to cash, with the protocol on every interface, and give me a PNG.”</div></details>
+          <details class="faq"><summary>My agent doesn’t pick it up. What now?</summary><div>Run <code>archistry setup</code> in the project. It adds a rule to the agent’s instructions (CLAUDE.md, Copilot, AGENTS.md, Gemini, Cursor or Windsurf) so every diagram request goes to Archistry. <code>--remove</code> takes it out again.</div></details>
           <details class="faq"><summary>Does it work without an AI agent?</summary><div>Yes. Run <code>archistry init solution-architecture -o arch.json</code> for a complete starter spec, edit it, then <code>archistry build arch.json --format drawio,html,png</code>.</div></details>
           <details class="faq"><summary>Does my data leave my machine?</summary><div>No. The build runs in Node on your machine, image export runs in your own headless browser, and the HTML output makes no network requests.</div></details>
         </div>
         <div>
           <details class="faq"><summary>Is it only for Salesforce?</summary><div>It is built and optimised for Salesforce work: the types, notation, icons and examples are all Salesforce. The engine itself is platform-neutral, so it can be adapted for other platforms.</div></details>
           <details class="faq"><summary>Can I use my company colours?</summary><div>Yes. Put a <code>brand.json</code> beside your spec. Palette and font follow your brand; notation such as crow’s feet and BPMN shapes stays standard.</div></details>
+          <details class="faq"><summary>Why does every diagram have a grey header?</summary><div>It is the header card from the Salesforce Architects kit of parts: the title and a one-line description on the left, the key on the right. Set <code>"header": "banner"</code> or <code>"header": "title"</code> in the spec for another style.</div></details>
           <details class="faq"><summary>How do I update it?</summary><div>Run <code>npx skills update</code> if you installed with <code>npx skills add</code>, or <code>git pull</code> inside the folder if you cloned it.</div></details>
         </div>
       </div>
